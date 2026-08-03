@@ -24,9 +24,9 @@ extension Toolchain {
     /// body yields a clean run on 6.3.x.
     public static var hasTaggedMetadataSIGSEGV: Bool {
         #if compiler(<6.4)
-        return true
+            return true
         #else
-        return false
+            return false
         #endif
     }
 }
