@@ -2,12 +2,12 @@ public import Buffer_Linear_Primitive
 public import Column_Primitives
 public import Graph_Primitives
 public import Hash_Indexed_Primitive
-import Set_Ordered_Primitives
 // Hoisted carriers `__Set` / `__SetOrdered` spelled directly ([DS-025]/[DS-028]);
 // not surfaced through the umbrella @_exported import.
 public import Set_Ordered_Primitive
-public import Set_Primitives
+import Set_Ordered_Primitives
 public import Set_Primitive
+public import Set_Primitives
 
 /// Convenience for constructing `Set.Ordered` from node values in tests.
 ///
