@@ -26,7 +26,10 @@ extension Graph.Sequential.Path {
     /// - Returns: Path from source to target (inclusive), or `nil` if unreachable.
     /// - Complexity: O(V + E)
     @inlinable
-    public func shortest(from source: Graph.Node<Tag>, to target: Graph.Node<Tag>) -> [Graph.Node<Tag>]? {
+    public func shortest(
+        from source: Graph.Node<Tag>,
+        to target: Graph.Node<Tag>
+    ) -> [Graph.Node<Tag>]? {
         let count = graph.count
         guard count > .zero else { return nil }
 
@@ -39,7 +42,10 @@ extension Graph.Sequential.Path {
 
         // BFS with bit-packed visited tracking and predecessor array
         let visited = Bit.Vector(capacity: count.retag(Bit.self))
-        var predecessors = __Fixed<Column.Bounded<Graph.Node<Tag>?>>(repeating: nil, count: count.retag((Graph.Node<Tag>?).self))
+        var predecessors = __Fixed<Column.Bounded<Graph.Node<Tag>?>>(
+            repeating: nil,
+            count: count.retag((Graph.Node<Tag>?).self)
+        )
         var queue = __Queue<Column.Ring<Graph.Node<Tag>>>()
 
         visited[source.retag(Bit.self)] = true
@@ -56,7 +62,11 @@ extension Graph.Sequential.Path {
 
                     if adjacent == target {
                         // Found target - reconstruct path
-                        return reconstructPath(to: target, predecessors: predecessors, source: source)
+                        return reconstructPath(
+                            to: target,
+                            predecessors: predecessors,
+                            source: source
+                        )
                     }
                 }
             }

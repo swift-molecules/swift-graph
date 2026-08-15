@@ -170,7 +170,9 @@ struct `Graph Sequential Path Weighted Tests` {
         // Weight function: B edges = 1, C edges = 10, all others = 1
         let result = graph.path.weighted(from: a, to: d) { payload, _ in
             // Check if this is node C's edge
-            if payload.adjacent.contains(d) && payload.adjacent.count == 1 && payload.adjacent.first == d {
+            if payload.adjacent.contains(d) && payload.adjacent.count == 1
+                && payload.adjacent.first == d
+            {
                 // This could be B or C - we need to differentiate
                 // Since we don't have the source node, use a simpler weight scheme
                 return 1
@@ -206,7 +208,6 @@ struct `Graph Sequential Path Weighted Tests` {
         // `Int`; no typed Cardinal surface available at this assertion site.
         // The math IS the length-minus-one expression; algebraic-flip rephrase
         // obscures the graph-theoretic relationship.
-        // swiftlint:disable:next cardinal_count_minus_one_anti_pattern
         #expect(weightedResult!.distance == shortestPath!.count - 1)
     }
 

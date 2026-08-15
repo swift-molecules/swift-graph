@@ -27,7 +27,10 @@ extension Graph.Sequential.Reverse {
 
         // Build reversed adjacency lists using a plain Fixed scratch; retag node
         // indices into the Element domain at each access.
-        var reversedAdjacent = __Fixed<Column.Bounded<[Graph.Node<Tag>]>>(repeating: [], count: count.retag([Graph.Node<Tag>].self))
+        var reversedAdjacent = __Fixed<Column.Bounded<[Graph.Node<Tag>]>>(
+            repeating: [],
+            count: count.retag([Graph.Node<Tag>].self)
+        )
 
         for source in graph.nodes {
             let payload = graph.storage[source]
@@ -42,7 +45,11 @@ extension Graph.Sequential.Reverse {
         // Build the reversed graph
         var builder = Graph.Sequential<Tag, Graph.Adjacency.List<Tag>>.Builder(capacity: count)
         for source in graph.nodes {
-            _ = builder.allocate(Graph.Adjacency.List(adjacent: reversedAdjacent[source.retag([Graph.Node<Tag>].self)]))
+            _ = builder.allocate(
+                Graph.Adjacency.List(
+                    adjacent: reversedAdjacent[source.retag([Graph.Node<Tag>].self)]
+                )
+            )
         }
 
         return builder.build()

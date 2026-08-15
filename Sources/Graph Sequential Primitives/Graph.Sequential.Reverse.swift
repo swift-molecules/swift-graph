@@ -19,7 +19,10 @@ extension Graph.Sequential {
         public let extract: Graph.Adjacency.Extract<Payload, Tag, Adjacent>
 
         @usableFromInline
-        init(graph: Graph.Sequential<Tag, Payload>, extract: Graph.Adjacency.Extract<Payload, Tag, Adjacent>) {
+        init(
+            graph: Graph.Sequential<Tag, Payload>,
+            extract: Graph.Adjacency.Extract<Payload, Tag, Adjacent>
+        ) {
             self.graph = graph
             self.extract = extract
         }

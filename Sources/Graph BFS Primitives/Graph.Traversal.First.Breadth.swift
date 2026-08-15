@@ -33,7 +33,11 @@ extension Graph.Traversal.First {
     /// Each node is visited at most once, even if reachable from multiple paths.
     @safe
     @frozen
-    public struct Breadth<Tag: ~Copyable & ~Escapable, Payload, Adjacent: Swift.Sequence<Graph.Node<Tag>>>: ~Copyable, Iterator.Chunk.`Protocol` {
+    public struct Breadth<
+        Tag: ~Copyable & ~Escapable,
+        Payload,
+        Adjacent: Swift.Sequence<Graph.Node<Tag>>
+    >: ~Copyable, Iterator.Chunk.`Protocol` {
         /// A node paired with its payload, in breadth-first visitation order.
         public typealias Element = (node: Graph.Node<Tag>, payload: Payload)
         /// This iterator never throws.
@@ -122,7 +126,9 @@ extension Graph.Traversal.First {
         /// internal single-element storage (`Iterator.Chunk` protocol requirement).
         @_lifetime(&self)
         @inlinable
-        public mutating func next(maximumCount: some Carrier.`Protocol`<Cardinal>) -> Swift.Span<Element> {
+        public mutating func next(
+            maximumCount: some Carrier.`Protocol`<Cardinal>
+        ) -> Swift.Span<Element> {
             // Hoisting `_elementBox` and its `.pointer` to locals before the
             // `mark_dependence`-generating `Span` construction below is
             // required, not stylistic: writing `_elementBox.pointer` inline at

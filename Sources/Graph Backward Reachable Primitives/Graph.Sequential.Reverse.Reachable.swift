@@ -22,7 +22,9 @@ extension Graph.Sequential.Reverse {
     /// - Returns: Ordered set of nodes that can reach the target, including the target itself.
     /// - Complexity: O(V + E)
     @inlinable
-    public func reachable(to target: Graph.Node<Tag>) -> __SetOrdered<Hash.Indexed<Column.Heap<Graph.Node<Tag>>>> {
+    public func reachable(
+        to target: Graph.Node<Tag>
+    ) -> __SetOrdered<Hash.Indexed<Column.Heap<Graph.Node<Tag>>>> {
         let count = graph.count
         var result = __SetOrdered<Hash.Indexed<Column.Heap<Graph.Node<Tag>>>>()
 

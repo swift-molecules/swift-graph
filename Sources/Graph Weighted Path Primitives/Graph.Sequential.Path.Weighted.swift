@@ -68,8 +68,14 @@ extension Graph.Sequential.Path {
         // Dijkstra's algorithm with heap-based priority queue
         var heap = Heap<Entry>()
         let visited = Bit.Vector(capacity: count.retag(Bit.self))
-        var distances = __Fixed<Column.Bounded<Int>>(repeating: Int.max, count: count.retag(Int.self))
-        var predecessors = __Fixed<Column.Bounded<Graph.Node<Tag>?>>(repeating: nil, count: count.retag((Graph.Node<Tag>?).self))
+        var distances = __Fixed<Column.Bounded<Int>>(
+            repeating: Int.max,
+            count: count.retag(Int.self)
+        )
+        var predecessors = __Fixed<Column.Bounded<Graph.Node<Tag>?>>(
+            repeating: nil,
+            count: count.retag((Graph.Node<Tag>?).self)
+        )
 
         distances[source.retag(Int.self)] = 0
         heap.push(Entry(node: source, distance: 0))
@@ -82,7 +88,10 @@ extension Graph.Sequential.Path {
 
             // Found target - reconstruct path
             if entry.node == target {
-                return (reconstructWeightedPath(to: target, predecessors: predecessors, source: source), entry.distance)
+                return (
+                    reconstructWeightedPath(to: target, predecessors: predecessors, source: source),
+                    entry.distance
+                )
             }
 
             let payload = graph.storage[entry.node]
