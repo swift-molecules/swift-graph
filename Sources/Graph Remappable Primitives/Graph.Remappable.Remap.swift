@@ -7,7 +7,11 @@ extension Graph.Remappable {
     ///   Edge multiplicity and order are preserved.
     /// - **Totality**: `transform` closure must be total over all nodes referenced by this payload.
     @frozen
-    public struct Remap<Payload, Tag: ~Copyable & ~Escapable, Adjacent: Swift.Sequence<Graph.Node<Tag>>> {
+    public struct Remap<
+        Payload,
+        Tag: ~Copyable & ~Escapable,
+        Adjacent: Swift.Sequence<Graph.Node<Tag>>
+    > {
         @usableFromInline
         let _adjacent: (Payload) -> Adjacent
 
@@ -33,7 +37,10 @@ extension Graph.Remappable {
 
         /// Returns a copy of `payload` with every node reference rewritten by `transform`.
         @inlinable
-        public func mapNodes(_ payload: Payload, _ transform: (Graph.Node<Tag>) -> Graph.Node<Tag>) -> Payload {
+        public func mapNodes(
+            _ payload: Payload,
+            _ transform: (Graph.Node<Tag>) -> Graph.Node<Tag>
+        ) -> Payload {
             _mapNodes(payload, transform)
         }
 
@@ -46,7 +53,8 @@ extension Graph.Remappable {
 }
 
 // Canonical remap for List
-extension Graph.Remappable.Remap where Payload == Graph.Adjacency.List<Tag>, Adjacent == [Graph.Node<Tag>] {
+extension Graph.Remappable.Remap
+where Payload == Graph.Adjacency.List<Tag>, Adjacent == [Graph.Node<Tag>] {
     /// Remap for the canonical `List` payload type.
     @inlinable
     public static var list: Self {

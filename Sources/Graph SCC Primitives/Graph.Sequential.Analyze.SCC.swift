@@ -38,7 +38,8 @@ extension Graph.Sequential.Analyze {
 
         // Call stack frame: (node, adjacents as array, current index, phase)
         // phase: true = entering, false = processing adjacents / leaving
-        var callStack: [(node: Graph.Node<Tag>, adjacents: [Graph.Node<Tag>], adjIndex: Int, phase: Bool)] = []
+        var callStack:
+            [(node: Graph.Node<Tag>, adjacents: [Graph.Node<Tag>], adjIndex: Int, phase: Bool)] = []
 
         for root in roots {
             guard root < count else { continue }
@@ -83,7 +84,10 @@ extension Graph.Sequential.Analyze {
                         break
                     } else if onStack[adjacent.retag(Bit.self)] {
                         // On stack: update lowLink
-                        lowLink[node.retag(Int.self)] = min(lowLink[node.retag(Int.self)], nodeIndex[adjacent.retag(Int.self)])
+                        lowLink[node.retag(Int.self)] = min(
+                            lowLink[node.retag(Int.self)],
+                            nodeIndex[adjacent.retag(Int.self)]
+                        )
                     }
                     // else: already processed and not on stack, ignore
                 }
@@ -108,7 +112,10 @@ extension Graph.Sequential.Analyze {
 
                 // Update parent's lowLink if there is a parent
                 if let parent = callStack.last?.node {
-                    lowLink[parent.retag(Int.self)] = min(lowLink[parent.retag(Int.self)], lowLink[node.retag(Int.self)])
+                    lowLink[parent.retag(Int.self)] = min(
+                        lowLink[parent.retag(Int.self)],
+                        lowLink[node.retag(Int.self)]
+                    )
                 }
             }
         }

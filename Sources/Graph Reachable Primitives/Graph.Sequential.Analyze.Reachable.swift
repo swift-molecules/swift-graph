@@ -22,7 +22,9 @@ extension Graph.Sequential.Analyze {
     /// - Returns: Ordered set of all nodes reachable from any root (includes roots themselves).
     /// - Complexity: O(V + E)
     @inlinable
-    public func reachable(from roots: some Swift.Sequence<Graph.Node<Tag>>) -> __SetOrdered<Hash.Indexed<Column.Heap<Graph.Node<Tag>>>> {
+    public func reachable(
+        from roots: some Swift.Sequence<Graph.Node<Tag>>
+    ) -> __SetOrdered<Hash.Indexed<Column.Heap<Graph.Node<Tag>>>> {
         let count = graph.count
         // Capacity folds the former post-construction `reserve` into the
         // column-pinned constructor (the W5 `Set<S>.Ordered` surface has no
@@ -68,7 +70,9 @@ extension Graph.Sequential.Analyze {
     /// - Returns: Ordered set of all nodes reachable from the root.
     /// - Complexity: O(V + E)
     @inlinable
-    public func reachable(from root: Graph.Node<Tag>) -> __SetOrdered<Hash.Indexed<Column.Heap<Graph.Node<Tag>>>> {
+    public func reachable(
+        from root: Graph.Node<Tag>
+    ) -> __SetOrdered<Hash.Indexed<Column.Heap<Graph.Node<Tag>>>> {
         reachable(from: Swift.CollectionOfOne(root))
     }
 }

@@ -134,7 +134,9 @@ struct `Graph Sequential Concurrency (W3 rider) Tests` {
                     var good = true  // storms on the SAME shared boxes
                     for _ in 0..<150 {
                         let copy = graph  // retains every column box
-                        var iter = copy.traverse.first(using: StormPayload.extract).depth(from: root)
+                        var iter = copy.traverse.first(using: StormPayload.extract).depth(
+                            from: root
+                        )
                         good = good && (iter.next()?.payload.id == depthReference[0])
                     }  // copy dies: releases every box
                     return good

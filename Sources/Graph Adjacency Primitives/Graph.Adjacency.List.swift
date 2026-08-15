@@ -16,7 +16,8 @@ extension Graph.Adjacency {
 }
 
 // Canonical extract for List
-extension Graph.Adjacency.Extract where Payload == Graph.Adjacency.List<Tag>, Adjacent == [Graph.Node<Tag>] {
+extension Graph.Adjacency.Extract
+where Payload == Graph.Adjacency.List<Tag>, Adjacent == [Graph.Node<Tag>] {
     /// Extract for the canonical `List` payload type.
     @inlinable
     public static var list: Self {

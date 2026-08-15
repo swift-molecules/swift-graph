@@ -78,9 +78,15 @@ private func buildChunkProbeGraph() -> (
     var builder = Graph.Sequential<TestTag, ChunkProbePayload>.Builder()
 
     // Diamond-ish: A -> B, A -> C, B -> C
-    let c = builder.allocate(ChunkProbePayload(a: 0xCCCC_CCCC_CCCC_CCCC, b: 0x3333_3333_3333_3333, id: 2))
-    let b = builder.allocate(ChunkProbePayload(a: 0xBBBB_BBBB_BBBB_BBBB, b: 0x2222_2222_2222_2222, id: 1))
-    let a = builder.allocate(ChunkProbePayload(a: 0xAAAA_AAAA_AAAA_AAAA, b: 0x1111_1111_1111_1111, id: 0))
+    let c = builder.allocate(
+        ChunkProbePayload(a: 0xCCCC_CCCC_CCCC_CCCC, b: 0x3333_3333_3333_3333, id: 2)
+    )
+    let b = builder.allocate(
+        ChunkProbePayload(a: 0xBBBB_BBBB_BBBB_BBBB, b: 0x2222_2222_2222_2222, id: 1)
+    )
+    let a = builder.allocate(
+        ChunkProbePayload(a: 0xAAAA_AAAA_AAAA_AAAA, b: 0x1111_1111_1111_1111, id: 0)
+    )
 
     let graph = builder.build()
     let adjacency: [Int: [Graph.Node<TestTag>]] = [0: [b, c], 1: [c], 2: []]
@@ -145,7 +151,9 @@ struct `Graph Traversal First Depth Tests` {
     func `DFS on empty roots`() {
         let (graph, _, _, _) = buildLinearGraph()
 
-        var iter = graph.traverse.first(using: TestPayload.extract).depth(from: [] as [Graph.Node<TestTag>])
+        var iter = graph.traverse.first(using: TestPayload.extract).depth(
+            from: [] as [Graph.Node<TestTag>]
+        )
         var hasElements = false
         while iter.next() != nil { hasElements = true }
         #expect(!hasElements)
@@ -167,7 +175,9 @@ struct `Graph Traversal First Depth Tests` {
         var reference: [(node: Graph.Node<TestTag>, a: UInt64, b: UInt64, id: Int)] = []
         var refIter = graph.traverse.first(using: extract).depth(from: a)
         while let element = refIter.next() {
-            reference.append((element.node, element.payload.a, element.payload.b, element.payload.id))
+            reference.append(
+                (element.node, element.payload.a, element.payload.b, element.payload.id)
+            )
         }
 
         var chunked: [(node: Graph.Node<TestTag>, a: UInt64, b: UInt64, id: Int)] = []
@@ -273,7 +283,9 @@ struct `Graph Traversal First Breadth Tests` {
         var reference: [(node: Graph.Node<TestTag>, a: UInt64, b: UInt64, id: Int)] = []
         var refIter = graph.traverse.first(using: extract).breadth(from: a)
         while let element = refIter.next() {
-            reference.append((element.node, element.payload.a, element.payload.b, element.payload.id))
+            reference.append(
+                (element.node, element.payload.a, element.payload.b, element.payload.id)
+            )
         }
 
         var chunked: [(node: Graph.Node<TestTag>, a: UInt64, b: UInt64, id: Int)] = []
