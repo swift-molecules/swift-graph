@@ -112,14 +112,7 @@ struct `Graph Sequential Reverse Graph Tests` {
 
 // MARK: - Backward Reachability Tests
 
-// `.reverse.reachable(to:)` builds a `Set<Graph.Node>.Ordered` (= `Set<Tagged>.Ordered`),
-// whose insert SIGSEGVs on Swift 6.3.x (catalog §A9). Skipped until 6.4+.
-@Suite(
-    .disabled(
-        if: Toolchain.hasTaggedMetadataSIGSEGV,
-        "§A9 Tagged metadata SIGSEGV in Set<Index>.Ordered.insert; fixed on Swift 6.4+"
-    )
-)
+@Suite
 struct `Graph Sequential Reverse Reachable Tests` {
     @Test
     func `Backward reachable equals forward reachable on reversed graph`() {

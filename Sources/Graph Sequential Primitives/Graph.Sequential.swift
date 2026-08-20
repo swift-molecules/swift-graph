@@ -3,7 +3,7 @@ public import Array_Primitive
 public import Array_Primitives
 public import Buffer_Linear_Primitive
 public import Buffer_Linear_Primitives
-public import Column_Primitives
+internal import Column_Primitives
 import Index_Primitives
 public import Ownership_Shared_Primitive
 public import Tagged_Collection_Primitives

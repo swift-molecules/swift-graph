@@ -1,11 +1,11 @@
 // Hoisted carrier spelled directly ([DS-025]/[DS-028]); not surfaced through the umbrella  import.
 public import Array_Primitive
-public import Array_Primitives
+internal import Array_Primitives
 import Bit_Vector_Primitives
 public import Buffer_Linear_Primitive
 import Buffer_Linear_Primitives
-public import Column_Primitives
-public import Ownership_Shared_Primitive
+internal import Column_Primitives
+internal import Ownership_Shared_Primitive
 import Stack_Primitives
 import Tagged_Collection_Primitives
 public import Tagged_Primitives

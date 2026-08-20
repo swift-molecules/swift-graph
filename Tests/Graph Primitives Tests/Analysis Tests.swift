@@ -17,14 +17,7 @@ extension TestPayload {
 
 // MARK: - Reachability Tests
 
-// `.reachable(from:)` builds a `Set<Graph.Node>.Ordered` (= `Set<Tagged>.Ordered`),
-// whose insert SIGSEGVs on Swift 6.3.x (catalog §A9). Skipped until 6.4+.
-@Suite(
-    .disabled(
-        if: Toolchain.hasTaggedMetadataSIGSEGV,
-        "§A9 Tagged metadata SIGSEGV in Set<Index>.Ordered.insert; fixed on Swift 6.4+"
-    )
-)
+@Suite
 struct `Graph Sequential Analyze Reachable Tests` {
     @Test
     func `Reachable from single root in DAG`() {
