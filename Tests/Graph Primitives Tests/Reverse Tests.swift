@@ -3,15 +3,12 @@ import Testing
 
 private enum TestTag {}
 
-// MARK: - Reversed Graph Tests
-
 @Suite
 struct `Graph Sequential Reverse Graph Tests` {
     @Test
     func `Reversed graph has same edge count`() {
         var builder = Graph.Sequential<TestTag, Graph.Adjacency.List<TestTag>>.Builder()
 
-        // Diamond: A -> B, A -> C, B -> D, C -> D (4 edges)
         let d = builder.allocate(Graph.Adjacency.List(adjacent: []))
         let b = builder.allocate(Graph.Adjacency.List(adjacent: [d]))
         let c = builder.allocate(Graph.Adjacency.List(adjacent: [d]))
@@ -19,16 +16,13 @@ struct `Graph Sequential Reverse Graph Tests` {
 
         let graph = builder.build()
 
-        // Count edges in original
         var originalEdgeCount = 0
         for node in graph.nodes {
             originalEdgeCount += graph[node].adjacent.count
         }
 
-        // Get reversed graph
         let reversed = graph.reverse.reversed()
 
-        // Count edges in reversed
         var reversedEdgeCount = 0
         for node in reversed.nodes {
             reversedEdgeCount += reversed[node].adjacent.count
@@ -42,7 +36,6 @@ struct `Graph Sequential Reverse Graph Tests` {
     func `Reversed graph reverses edges correctly`() {
         var builder = Graph.Sequential<TestTag, Graph.Adjacency.List<TestTag>>.Builder()
 
-        // A -> B -> C
         let c = builder.allocate(Graph.Adjacency.List(adjacent: []))
         let b = builder.allocate(Graph.Adjacency.List(adjacent: [c]))
         let a = builder.allocate(Graph.Adjacency.List(adjacent: [b]))
@@ -50,13 +43,6 @@ struct `Graph Sequential Reverse Graph Tests` {
         let graph = builder.build()
         let reversed = graph.reverse.reversed()
 
-        // Original: A -> B -> C
-        // Reversed: C -> B -> A
-
-        // In reversed graph:
-        // - A has no outgoing edges
-        // - B has edge to A
-        // - C has edge to B
         #expect(reversed[a].adjacent.isEmpty)
         #expect(reversed[b].adjacent == [a])
         #expect(reversed[c].adjacent == [b])
@@ -110,24 +96,18 @@ struct `Graph Sequential Reverse Graph Tests` {
     }
 }
 
-// MARK: - Backward Reachability Tests
-
 @Suite
 struct `Graph Sequential Reverse Reachable Tests` {
     @Test
     func `Backward reachable equals forward reachable on reversed graph`() {
         var builder = Graph.Sequential<TestTag, Graph.Adjacency.List<TestTag>>.Builder()
 
-        // A -> B -> C
         let c = builder.allocate(Graph.Adjacency.List(adjacent: []))
         let b = builder.allocate(Graph.Adjacency.List(adjacent: [c]))
         let a = builder.allocate(Graph.Adjacency.List(adjacent: [b]))
 
         let graph = builder.build()
 
-        // Backward reachable to C should be {A, B, C}
-        // `Set<S>.Ordered` is move-only on the direct column; #expect's autoclosure
-        // cannot capture it, so bind copyable results first.
         let backwardReachable = graph.reverse.reachable(to: c)
 
         let hasA = backwardReachable.contains(a)
@@ -144,14 +124,12 @@ struct `Graph Sequential Reverse Reachable Tests` {
     func `Backward reachable from disconnected node`() {
         var builder = Graph.Sequential<TestTag, Graph.Adjacency.List<TestTag>>.Builder()
 
-        // A -> B,  C (disconnected)
         let c = builder.allocate(Graph.Adjacency.List(adjacent: []))
         let b = builder.allocate(Graph.Adjacency.List(adjacent: []))
         let a = builder.allocate(Graph.Adjacency.List(adjacent: [b]))
 
         let graph = builder.build()
 
-        // Backward reachable to C should only be {C}
         let backwardReachable = graph.reverse.reachable(to: c)
 
         let hasC = backwardReachable.contains(c)
@@ -209,7 +187,6 @@ struct `Graph Sequential Reverse Reachable Tests` {
     func `Backward reachable in diamond graph`() {
         var builder = Graph.Sequential<TestTag, Graph.Adjacency.List<TestTag>>.Builder()
 
-        // Diamond: A -> B, A -> C, B -> D, C -> D
         let d = builder.allocate(Graph.Adjacency.List(adjacent: []))
         let b = builder.allocate(Graph.Adjacency.List(adjacent: [d]))
         let c = builder.allocate(Graph.Adjacency.List(adjacent: [d]))
@@ -217,7 +194,6 @@ struct `Graph Sequential Reverse Reachable Tests` {
 
         let graph = builder.build()
 
-        // Backward reachable to D should be {A, B, C, D}
         let backwardReachable = graph.reverse.reachable(to: d)
 
         let hasA = backwardReachable.contains(a)
@@ -236,7 +212,6 @@ struct `Graph Sequential Reverse Reachable Tests` {
     func `Backward reachable with cycle`() {
         var builder = Graph.Sequential<TestTag, Graph.Adjacency.List<TestTag>>.Builder()
 
-        // A -> B -> C -> A (cycle)
         let a = builder.allocateHole()
         let c = builder.allocate(Graph.Adjacency.List(adjacent: [a]))
         let b = builder.allocate(Graph.Adjacency.List(adjacent: [c]))
@@ -244,7 +219,6 @@ struct `Graph Sequential Reverse Reachable Tests` {
 
         let graph = builder.build()
 
-        // Backward reachable to any node should include all nodes (due to cycle)
         let backwardReachable = graph.reverse.reachable(to: a)
 
         let hasA = backwardReachable.contains(a)

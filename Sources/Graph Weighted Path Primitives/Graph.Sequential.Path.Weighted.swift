@@ -3,7 +3,6 @@ public import Buffer_Linear_Bounded_Primitive
 public import Buffer_Linear_Primitive
 public import Buffer_Linear_Primitives
 public import Column_Primitives
-// Hoisted carrier spelled directly ([DS-025]/[DS-028]); not surfaced through the umbrella @_exported import.
 public import Fixed_Primitive
 public import Fixed_Primitives
 public import Heap_Primitive
@@ -13,7 +12,7 @@ public import Tagged_Primitives
 import Vector_Primitives
 
 extension Graph.Sequential.Path {
-    /// Priority queue entry for Dijkstra's algorithm.
+
     @usableFromInline
     struct Entry: Comparison.`Protocol`, Sendable {
         @usableFromInline let node: Graph.Node<Tag>
@@ -38,17 +37,7 @@ extension Graph.Sequential.Path {
 }
 
 extension Graph.Sequential.Path {
-    /// Shortest path by edge weight using Dijkstra's algorithm.
-    ///
-    /// Uses `Heap` for priority queue operations and `Bit.Vector` for visited tracking.
-    ///
-    /// - Parameters:
-    ///   - source: Starting node.
-    ///   - target: Destination node.
-    ///   - weight: Closure extracting non-negative edge weight from source payload and target node.
-    /// - Returns: Tuple of (path, total distance), or `nil` if unreachable.
-    /// - Complexity: O((V + E) log V)
-    /// - Precondition: All weights must be non-negative.
+
     @inlinable
     public func weighted(
         from source: Graph.Node<Tag>,
@@ -58,14 +47,11 @@ extension Graph.Sequential.Path {
         let count = graph.count
         guard count > .zero else { return nil }
 
-        // Validate nodes
         guard source < count else { return nil }
         guard target < count else { return nil }
 
-        // Same node is trivially reachable with distance 0
         if source == target { return ([source], 0) }
 
-        // Dijkstra's algorithm with heap-based priority queue
         var heap = Heap<Entry>()
         let visited = Bit.Vector(capacity: count.retag(Bit.self))
         var distances = __Fixed<Column.Bounded<Int>>(
@@ -81,12 +67,11 @@ extension Graph.Sequential.Path {
         heap.push(Entry(node: source, distance: 0))
 
         while let entry = heap.pop() {
-            // Skip if already visited (we may have duplicate entries with worse distances)
+
             let entryIdx = entry.node.retag(Bit.self)
             guard !visited[entryIdx] else { continue }
             visited[entryIdx] = true
 
-            // Found target - reconstruct path
             if entry.node == target {
                 return (
                     reconstructWeightedPath(to: target, predecessors: predecessors, source: source),
@@ -113,7 +98,6 @@ extension Graph.Sequential.Path {
         return nil
     }
 
-    /// Reconstructs a path from the predecessors array.
     @usableFromInline
     func reconstructWeightedPath(
         to target: Graph.Node<Tag>,

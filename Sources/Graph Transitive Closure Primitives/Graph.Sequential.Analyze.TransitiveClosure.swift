@@ -3,7 +3,6 @@ public import Buffer_Linear_Bounded_Primitive
 public import Buffer_Linear_Primitive
 public import Buffer_Linear_Primitives
 public import Column_Primitives
-// Hoisted carrier spelled directly ([DS-025]/[DS-028]); not surfaced through the umbrella @_exported import.
 public import Fixed_Primitive
 public import Fixed_Primitives
 public import Ownership_Shared_Primitive
@@ -13,12 +12,7 @@ public import Tagged_Primitives
 public import Vector_Primitives
 
 extension Graph.Sequential.Analyze {
-    /// Computes transitive closure.
-    ///
-    /// Uses `Stack` for DFS per node and `Bit.Array` for visited tracking.
-    ///
-    /// - Returns: Graph where edge (u,v) exists iff v is reachable from u.
-    /// - Complexity: O(V * (V + E))
+
     @inlinable
     public func transitiveClosure() -> Graph.Sequential<Tag, Graph.Adjacency.List<Tag>> {
         let count = graph.count
@@ -27,8 +21,6 @@ extension Graph.Sequential.Analyze {
             return builder.build()
         }
 
-        // For each node, compute all reachable nodes
-        // Plain Fixed scratch; retag node indices into the Element domain.
         var closureAdjacent = __Fixed<Column.Bounded<[Graph.Node<Tag>]>>(
             repeating: [],
             count: count.retag([Graph.Node<Tag>].self)
@@ -38,19 +30,16 @@ extension Graph.Sequential.Analyze {
             let visited = Bit.Vector(capacity: count.retag(Bit.self))
             var stack = Stack<Graph.Node<Tag>>()
 
-            // Start DFS from source's adjacent nodes (not source itself initially)
             let sourcePayload = graph.storage[source]
             for adjacent in extract.adjacent(sourcePayload) {
                 stack.push(adjacent)
             }
 
-            // DFS to find all reachable nodes
             while let node = stack.pop() {
                 let idx = node.retag(Bit.self)
                 guard !visited[idx] else { continue }
                 visited[idx] = true
 
-                // Add to closure (node is reachable from source)
                 closureAdjacent[source.retag([Graph.Node<Tag>].self)].append(node)
 
                 let payload = graph.storage[node]
@@ -63,7 +52,6 @@ extension Graph.Sequential.Analyze {
             }
         }
 
-        // Build the closure graph
         var builder = Graph.Sequential<Tag, Graph.Adjacency.List<Tag>>.Builder(capacity: count)
         for source in graph.nodes {
             _ = builder.allocate(

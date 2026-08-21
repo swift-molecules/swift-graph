@@ -1,4 +1,3 @@
-// MARK: - Namespace + foundational sub-namespaces ([MOD-017] root + [MOD-031] per-sub-namespace) + algorithms
 @_exported public import Graph_Adjacency_Primitives
 @_exported public import Graph_BFS_Primitives
 @_exported public import Graph_Backward_Reachable_Primitives

@@ -1,12 +1,11 @@
 extension Graph.Sequential {
-    /// Accessor for traversal operations on this graph.
+
     @inlinable
     public var traverse: Traverse { Traverse(graph: self) }
 
-    /// Accessor type providing traversal operations.
     @frozen
     public struct Traverse {
-        /// The underlying graph.
+
         public let graph: Graph.Sequential<Tag, Payload>
 
         @usableFromInline

@@ -12,7 +12,7 @@ let package = Package(
         .visionOS(.v27),
     ],
     products: [
-        // MARK: - Namespace + foundational sub-namespaces ([MOD-017] root + [MOD-031])
+
         .library(
             name: "Graph Primitive",
             targets: ["Graph Primitive"]
@@ -37,7 +37,7 @@ let package = Package(
             name: "Graph Remappable Primitives",
             targets: ["Graph Remappable Primitives"]
         ),
-        // MARK: - Algorithms
+
         .library(
             name: "Graph DFS Primitives",
             targets: ["Graph DFS Primitives"]
@@ -98,12 +98,12 @@ let package = Package(
             name: "Graph Backward Reachable Primitives",
             targets: ["Graph Backward Reachable Primitives"]
         ),
-        // MARK: - Umbrella
+
         .library(
             name: "Graph Primitives",
             targets: ["Graph Primitives"]
         ),
-        // MARK: - Test Support
+
         .library(
             name: "Graph Primitives Test Support",
             targets: ["Graph Primitives Test Support"]
@@ -184,24 +184,7 @@ let package = Package(
         ),
     ],
     targets: [
-        // MARK: - Namespace + foundational sub-namespaces
-        //
-        // [MOD-017]: `Graph Primitive` (SINGULAR) owns the root `enum Graph {}` —
-        // zero external-package dependencies, the load-bearing invariant. [MOD-031]:
-        // each foundational sub-namespace is its own target. The legacy
-        // `Graph Primitives Core` funnel is dissolved; its external deps are now
-        // declared per sub-namespace ([MOD-002] amended), each target declaring
-        // exactly the modules its sources import ([MOD-038]).
-        //
-        // Depth note ([MOD-007] is a strive, not a gate): graph's foundational
-        // types are a genuine chain — identity (`Graph.Node`) → adjacency payload
-        // → the `Graph.Sequential` representation — and the algorithms layer two
-        // more levels on top (e.g. Dead→Reachable). Splitting every layer is the
-        // correct modularization even though it carries the longest path to
-        // edge-depth 5; each hop is an independent-consumer boundary ([MOD-008]).
-        // `Graph.Default` is the one fold — folded into `Graph Sequential
-        // Primitives` because its only consumer is `Graph.Sequential.Builder`
-        // ([MOD-008] no-independent-consumer), not to chase a depth number.
+
         .target(
             name: "Graph Primitive",
             dependencies: []
@@ -263,8 +246,6 @@ let package = Package(
                 "Graph Adjacency Primitives",
             ]
         ),
-
-        // MARK: - Traversal
 
         .target(
             name: "Graph DFS Primitives",
@@ -352,8 +333,6 @@ let package = Package(
                 .product(name: "Vector Primitives", package: "swift-vector-primitives"),
             ]
         ),
-
-        // MARK: - Analysis
 
         .target(
             name: "Graph Reachable Primitives",
@@ -477,8 +456,6 @@ let package = Package(
             ]
         ),
 
-        // MARK: - Path
-
         .target(
             name: "Graph Path Exists Primitives",
             dependencies: [
@@ -547,11 +524,7 @@ let package = Package(
             name: "Graph Weighted Path Primitives",
             dependencies: [
                 "Graph Sequential Primitives",
-                // Precise variant, not the umbrella ([MOD-015] import precision): graph
-                // uses only the base binary heap. The umbrella additionally pulls the
-                // MinMax variant, whose swift-memory-small-primitives dependency still
-                // spells the pre-W1 two-parameter Memory.Inline and does not compile
-                // on a fresh branch:main resolve.
+
                 .product(name: "Heap Primitive", package: "swift-heap-primitives"),
                 .product(name: "Bit Vector Primitives", package: "swift-bit-vector-primitives"),
                 .product(
@@ -577,8 +550,6 @@ let package = Package(
                 .product(name: "Vector Primitives", package: "swift-vector-primitives"),
             ]
         ),
-
-        // MARK: - Transform
 
         .target(
             name: "Graph Payload Map Primitives",
@@ -622,8 +593,6 @@ let package = Package(
                 ),
             ]
         ),
-
-        // MARK: - Reverse
 
         .target(
             name: "Graph Reverse Primitives",
@@ -685,9 +654,6 @@ let package = Package(
             ]
         ),
 
-        // MARK: - Umbrella
-        //
-        // [MOD-005]: re-exports ALL sub-targets (root + 5 foundational + 15 algorithms).
         .target(
             name: "Graph Primitives",
             dependencies: [
@@ -714,8 +680,6 @@ let package = Package(
                 "Graph Backward Reachable Primitives",
             ]
         ),
-
-        // MARK: - Test Support
 
         .target(
             name: "Graph Primitives Test Support",

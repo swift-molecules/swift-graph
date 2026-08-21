@@ -1,4 +1,3 @@
-// Hoisted carrier spelled directly ([DS-025]/[DS-028]); not surfaced through the umbrella  import.
 public import Array_Primitive
 internal import Array_Primitives
 import Bit_Vector_Primitives
@@ -12,32 +11,14 @@ public import Tagged_Primitives
 import Vector_Primitives
 
 extension Graph.Traversal {
-    /// Topological ordering of nodes in a directed acyclic graph.
-    ///
-    /// Computes the full ordering eagerly upon construction, returning nodes in an
-    /// order where each node appears before any nodes it references. If the graph
-    /// contains cycles, `hasCycles` will be `true` and the sequence will be empty.
-    ///
-    /// Unlike depth-first and breadth-first traversals which are lazy iterators,
-    /// topological ordering requires computing the complete result to detect cycles.
-    ///
-    /// ## Example
-    ///
-    /// ```swift
-    /// let order = graph.traverse.topological(from: root)
-    /// if !order.hasCycles {
-    ///     for (node, payload) in order {
-    ///         // Process in dependency order
-    ///     }
-    /// }
-    /// ```
+
     @frozen
     public struct Topological<
         Tag: ~Copyable & ~Escapable,
         Payload,
         Adjacent: Swift.Sequence<Graph.Node<Tag>>
     >: Swift.Sequence {
-        /// A node paired with its payload, in topological order.
+
         public typealias Element = (node: Graph.Node<Tag>, payload: Payload)
 
         @usableFromInline
@@ -61,13 +42,11 @@ extension Graph.Traversal {
             let count = storage.count
             guard count > .zero else { return [] }
 
-            // Bit-packed state: O(1) lookup by node position with 8x memory savings
             let visited = Bit.Vector(capacity: count.retag(Bit.self))
             let visiting = Bit.Vector(capacity: count.retag(Bit.self))
             var result: [Element] = []
             result.reserveCapacity(count)
 
-            // Stack uses two phases: true = entering, false = leaving
             var stack = Stack<(node: Graph.Node<Tag>, entering: Bool)>()
 
             for root in roots {
@@ -80,31 +59,29 @@ extension Graph.Traversal {
                     let nodeIdx = node.retag(Bit.self)
 
                     if entering {
-                        // Entering: check state and push adjacents
+
                         if visited[nodeIdx] { continue }
                         if visiting[nodeIdx] {
-                            // Cycle detected: node is on current DFS path
+
                             return nil
                         }
 
                         visiting[nodeIdx] = true
 
-                        // Push leave action first (will be processed after all adjacents)
                         stack.push((node, false))
 
-                        // Push adjacents to visit
                         let payload = storage[node]
                         for adjacent in extract.adjacent(payload) {
                             let adjIdx = adjacent.retag(Bit.self)
                             if !visited[adjIdx] && !visiting[adjIdx] {
                                 stack.push((adjacent, true))
                             } else if visiting[adjIdx] {
-                                // Cycle detected
+
                                 return nil
                             }
                         }
                     } else {
-                        // Leaving: mark visited and record in result
+
                         visiting[nodeIdx] = false
                         visited[nodeIdx] = true
                         result.append((node, storage[node]))
@@ -116,12 +93,9 @@ extension Graph.Traversal {
             return result
         }
 
-        /// Whether the graph contains cycles (making topological order impossible).
         @inlinable
         public var hasCycles: Bool { elements == nil }
 
-        /// Returns an iterator over the topological order, or an empty iterator if
-        /// the graph has cycles.
         @inlinable
         public func makeIterator() -> IndexingIterator<[Element]> {
             (elements ?? []).makeIterator()

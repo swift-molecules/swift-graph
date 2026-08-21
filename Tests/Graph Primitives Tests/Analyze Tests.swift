@@ -3,15 +3,12 @@ import Testing
 
 private enum TestTag {}
 
-// MARK: - Dead Nodes Tests
-
 @Suite
 struct `Graph Sequential Analyze Dead Tests` {
     @Test
     func `Dead nodes in disconnected graph`() {
         var builder = Graph.Sequential<TestTag, Graph.Adjacency.List<TestTag>>.Builder()
 
-        // A -> B,  C, D (C and D disconnected)
         let d = builder.allocate(Graph.Adjacency.List(adjacent: []))
         let c = builder.allocate(Graph.Adjacency.List(adjacent: []))
         let b = builder.allocate(Graph.Adjacency.List(adjacent: []))
@@ -19,8 +16,6 @@ struct `Graph Sequential Analyze Dead Tests` {
 
         let graph = builder.build()
 
-        // `Set<S>.Ordered` is move-only on the direct column; #expect's autoclosure
-        // cannot capture it, so bind copyable results first.
         let dead = graph.analyze.dead(from: [a])
 
         let hasC = dead.contains(c)
@@ -39,7 +34,6 @@ struct `Graph Sequential Analyze Dead Tests` {
     func `Dead nodes from all roots is empty`() {
         var builder = Graph.Sequential<TestTag, Graph.Adjacency.List<TestTag>>.Builder()
 
-        // A -> B -> C
         let c = builder.allocate(Graph.Adjacency.List(adjacent: []))
         let b = builder.allocate(Graph.Adjacency.List(adjacent: [c]))
         let a = builder.allocate(Graph.Adjacency.List(adjacent: [b]))
@@ -88,7 +82,6 @@ struct `Graph Sequential Analyze Dead Tests` {
     func `Dead nodes from multiple roots`() {
         var builder = Graph.Sequential<TestTag, Graph.Adjacency.List<TestTag>>.Builder()
 
-        // A -> B,  C -> D,  E (disconnected)
         let e = builder.allocate(Graph.Adjacency.List(adjacent: []))
         let d = builder.allocate(Graph.Adjacency.List(adjacent: []))
         let c = builder.allocate(Graph.Adjacency.List(adjacent: [d]))
@@ -114,15 +107,12 @@ struct `Graph Sequential Analyze Dead Tests` {
     }
 }
 
-// MARK: - Transitive Closure Tests
-
 @Suite
 struct `Graph Sequential Analyze TransitiveClosure Tests` {
     @Test
     func `Transitive closure on diamond DAG has correct edge count`() {
         var builder = Graph.Sequential<TestTag, Graph.Adjacency.List<TestTag>>.Builder()
 
-        // Diamond: A -> B, A -> C, B -> D, C -> D
         let d = builder.allocate(Graph.Adjacency.List(adjacent: []))
         let b = builder.allocate(Graph.Adjacency.List(adjacent: [d]))
         let c = builder.allocate(Graph.Adjacency.List(adjacent: [d]))
@@ -131,13 +121,6 @@ struct `Graph Sequential Analyze TransitiveClosure Tests` {
         let graph = builder.build()
         let closure = graph.analyze.transitiveClosure()
 
-        // Transitive closure edges:
-        // A -> B, C, D (3 edges)
-        // B -> D (1 edge)
-        // C -> D (1 edge)
-        // D -> (0 edges)
-        // Total: 5 edges
-
         var totalEdges = 0
         for node in closure.nodes {
             totalEdges += closure[node].adjacent.count
@@ -145,16 +128,13 @@ struct `Graph Sequential Analyze TransitiveClosure Tests` {
 
         #expect(totalEdges == 5)
 
-        // Verify A can reach all other nodes
         #expect(closure[a].adjacent.contains(b))
         #expect(closure[a].adjacent.contains(c))
         #expect(closure[a].adjacent.contains(d))
 
-        // Verify B and C can reach D
         #expect(closure[b].adjacent.contains(d))
         #expect(closure[c].adjacent.contains(d))
 
-        // Verify D has no outgoing edges
         #expect(closure[d].adjacent.isEmpty)
     }
 
@@ -162,7 +142,6 @@ struct `Graph Sequential Analyze TransitiveClosure Tests` {
     func `Transitive closure on linear graph`() {
         var builder = Graph.Sequential<TestTag, Graph.Adjacency.List<TestTag>>.Builder()
 
-        // A -> B -> C -> D
         let d = builder.allocate(Graph.Adjacency.List(adjacent: []))
         let c = builder.allocate(Graph.Adjacency.List(adjacent: [d]))
         let b = builder.allocate(Graph.Adjacency.List(adjacent: [c]))
@@ -171,12 +150,6 @@ struct `Graph Sequential Analyze TransitiveClosure Tests` {
         let graph = builder.build()
         let closure = graph.analyze.transitiveClosure()
 
-        // A -> B, C, D (3 edges)
-        // B -> C, D (2 edges)
-        // C -> D (1 edge)
-        // D -> (0 edges)
-        // Total: 6 edges
-
         var totalEdges = 0
         for node in closure.nodes {
             totalEdges += closure[node].adjacent.count
@@ -184,13 +157,10 @@ struct `Graph Sequential Analyze TransitiveClosure Tests` {
 
         #expect(totalEdges == 6)
 
-        // Verify A can reach all nodes
         #expect(closure[a].adjacent.count == 3)
 
-        // Verify B can reach C and D
         #expect(closure[b].adjacent.count == 2)
 
-        // Verify C can reach D
         #expect(closure[c].adjacent.count == 1)
     }
 
@@ -198,7 +168,6 @@ struct `Graph Sequential Analyze TransitiveClosure Tests` {
     func `Transitive closure on cycle includes self-loops`() {
         var builder = Graph.Sequential<TestTag, Graph.Adjacency.List<TestTag>>.Builder()
 
-        // A -> B -> C -> A (cycle)
         let a = builder.allocateHole()
         let c = builder.allocate(Graph.Adjacency.List(adjacent: [a]))
         let b = builder.allocate(Graph.Adjacency.List(adjacent: [c]))
@@ -207,12 +176,6 @@ struct `Graph Sequential Analyze TransitiveClosure Tests` {
         let graph = builder.build()
         let closure = graph.analyze.transitiveClosure()
 
-        // In a cycle, every node can reach every other node (including itself)
-        // A -> A, B, C (3 edges)
-        // B -> A, B, C (3 edges)
-        // C -> A, B, C (3 edges)
-        // Total: 9 edges
-
         var totalEdges = 0
         for node in closure.nodes {
             totalEdges += closure[node].adjacent.count
@@ -220,7 +183,6 @@ struct `Graph Sequential Analyze TransitiveClosure Tests` {
 
         #expect(totalEdges == 9)
 
-        // Each node should be able to reach all nodes (including itself)
         #expect(closure[a].adjacent.count == 3)
         #expect(closure[b].adjacent.count == 3)
         #expect(closure[c].adjacent.count == 3)
@@ -252,17 +214,12 @@ struct `Graph Sequential Analyze TransitiveClosure Tests` {
     func `Transitive closure on disconnected graph`() {
         var builder = Graph.Sequential<TestTag, Graph.Adjacency.List<TestTag>>.Builder()
 
-        // A -> B,  C (disconnected)
         let c = builder.allocate(Graph.Adjacency.List(adjacent: []))
         let b = builder.allocate(Graph.Adjacency.List(adjacent: []))
         let a = builder.allocate(Graph.Adjacency.List(adjacent: [b]))
 
         let graph = builder.build()
         let closure = graph.analyze.transitiveClosure()
-
-        // A -> B (1 edge)
-        // B -> (0 edges)
-        // C -> (0 edges)
 
         #expect(closure[a].adjacent.count == 1)
         #expect(closure[a].adjacent.contains(b))

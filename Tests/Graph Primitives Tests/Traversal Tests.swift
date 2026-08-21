@@ -9,13 +9,11 @@ private struct TestPayload: Sendable {
 }
 
 extension TestPayload {
-    /// Extract for TestPayload adjacency.
+
     static var extract: Graph.Adjacency.Extract<TestPayload, TestTag, [Graph.Node<TestTag>]> {
         Graph.Adjacency.Extract { $0.successors }
     }
 }
-
-// MARK: - Test Graph Builder
 
 private func buildDiamondGraph() -> (
     graph: Graph.Sequential<TestTag, TestPayload>,
@@ -26,7 +24,6 @@ private func buildDiamondGraph() -> (
 ) {
     var builder = Graph.Sequential<TestTag, TestPayload>.Builder()
 
-    // Diamond: A -> B, A -> C, B -> D, C -> D
     let d = builder.allocate(TestPayload(name: "D", successors: []))
     let b = builder.allocate(TestPayload(name: "B", successors: [d]))
     let c = builder.allocate(TestPayload(name: "C", successors: [d]))
@@ -43,7 +40,6 @@ private func buildLinearGraph() -> (
 ) {
     var builder = Graph.Sequential<TestTag, TestPayload>.Builder()
 
-    // Linear: A -> B -> C
     let c = builder.allocate(TestPayload(name: "C", successors: []))
     let b = builder.allocate(TestPayload(name: "B", successors: [c]))
     let a = builder.allocate(TestPayload(name: "A", successors: [b]))
@@ -51,17 +47,6 @@ private func buildLinearGraph() -> (
     return (builder.build(), a, b, c)
 }
 
-// MARK: - Chunk-path (`next(maximumCount:)`) fixtures
-
-/// A payload with NO Array/String/class-reference field: every field is a
-/// plain fixed-width integer, so the type has no extra inhabitants and
-/// `Optional<Element>` cannot borrow spare bits from it.
-///
-/// This maximizes the chance of exposing a layout mismatch between `Element`
-/// and `Optional<Element>` (F-002's chunk iterators used to reinterpret a
-/// pointer into `Optional<Element>` storage as `Element`). Adjacency is
-/// supplied via a captured dictionary — not a stored `Array` field — so the
-/// payload itself stays free of extra inhabitants.
 private struct ChunkProbePayload: Sendable {
     var a: UInt64
     var b: UInt64
@@ -77,7 +62,6 @@ private func buildChunkProbeGraph() -> (
 ) {
     var builder = Graph.Sequential<TestTag, ChunkProbePayload>.Builder()
 
-    // Diamond-ish: A -> B, A -> C, B -> C
     let c = builder.allocate(
         ChunkProbePayload(a: 0xCCCC_CCCC_CCCC_CCCC, b: 0x3333_3333_3333_3333, id: 2)
     )
@@ -95,8 +79,6 @@ private func buildChunkProbeGraph() -> (
     }
     return (graph, extract, a, b, c)
 }
-
-// MARK: - Depth-First Tests
 
 @Suite
 struct `Graph Traversal First Depth Tests` {
@@ -122,7 +104,6 @@ struct `Graph Traversal First Depth Tests` {
             visited.append(element.payload.name)
         }
 
-        // D should appear exactly once despite being reachable via B and C
         #expect(visited.count == 4)
         #expect(visited.first == "A")
         #expect(visited.contains("B"))
@@ -140,7 +121,6 @@ struct `Graph Traversal First Depth Tests` {
             visited.append(element.payload.name)
         }
 
-        // Should visit B, C, D (D once even though reachable from both)
         #expect(visited.count == 3)
         #expect(visited.contains("B"))
         #expect(visited.contains("C"))
@@ -159,15 +139,6 @@ struct `Graph Traversal First Depth Tests` {
         #expect(!hasElements)
     }
 
-    // [F-002] `next(maximumCount:)` used to hand out a `Span<Element>` built
-    // from a pointer into `Optional<Element>` storage, reinterpreted via
-    // `assumingMemoryBound(to: Element.self)` — a type-pun across two types
-    // that are not guaranteed to share layout (verified: for
-    // `ChunkProbePayload`, `MemoryLayout<Element>.size` and
-    // `MemoryLayout<Element?>.size` genuinely differ on this toolchain), and
-    // a pointer escaped past the `withUnsafeMutablePointer` closure that
-    // produced it. This drives the chunked path end to end and cross-checks
-    // it, field by field, against the scalar `next()` path.
     @Test
     func `Chunked next(maximumCount:) matches scalar next() across full traversal`() {
         let (graph, extract, a, _, _) = buildChunkProbeGraph()
@@ -204,13 +175,10 @@ struct `Graph Traversal First Depth Tests` {
         let (graph, extract, a, _, _) = buildChunkProbeGraph()
 
         var iter = graph.traverse.first(using: extract).depth(from: a)
-        // `Span<Element>` is `~Escapable`; #expect's autoclosure cannot
-        // capture it directly, so bind the plain values first (same
-        // constraint noted for `Set<S>.Ordered` in Analysis Tests.swift).
+
         let zeroSpanIsEmpty = iter.next(maximumCount: Cardinal(UInt(0))).isEmpty
         #expect(zeroSpanIsEmpty)
 
-        // The iterator must still be positioned at the first element.
         let span = iter.next(maximumCount: Cardinal(UInt(1)))
         let count = span.count
         let firstNode = span[0].node
@@ -218,8 +186,6 @@ struct `Graph Traversal First Depth Tests` {
         #expect(firstNode == a)
     }
 }
-
-// MARK: - Breadth-First Tests
 
 @Suite
 struct `Graph Traversal First Breadth Tests` {
@@ -245,7 +211,6 @@ struct `Graph Traversal First Breadth Tests` {
             visited.append(element.payload.name)
         }
 
-        // Should visit in level order: A, then B and C, then D
         #expect(visited.count == 4)
         #expect(visited.first == "A")
         #expect(visited.last == "D")
@@ -261,7 +226,6 @@ struct `Graph Traversal First Breadth Tests` {
             visited.append(element.payload.name)
         }
 
-        // A is at level 0, B and C at level 1, D at level 2
         let aIndex = visited.firstIndex(of: "A")!
         let bIndex = visited.firstIndex(of: "B")!
         let cIndex = visited.firstIndex(of: "C")!
@@ -273,9 +237,6 @@ struct `Graph Traversal First Breadth Tests` {
         #expect(cIndex < dIndex)
     }
 
-    // [F-002] Same hazard as the DFS case above (`Graph.Traversal.First.Breadth`
-    // duplicates the identical unsound pattern) — cross-check the chunked path
-    // against the scalar path field by field.
     @Test
     func `Chunked next(maximumCount:) matches scalar next() across full traversal`() {
         let (graph, extract, a, _, _) = buildChunkProbeGraph()
@@ -312,9 +273,7 @@ struct `Graph Traversal First Breadth Tests` {
         let (graph, extract, a, _, _) = buildChunkProbeGraph()
 
         var iter = graph.traverse.first(using: extract).breadth(from: a)
-        // `Span<Element>` is `~Escapable`; #expect's autoclosure cannot
-        // capture it directly, so bind the plain values first (same
-        // constraint noted for `Set<S>.Ordered` in Analysis Tests.swift).
+
         let zeroSpanIsEmpty = iter.next(maximumCount: Cardinal(UInt(0))).isEmpty
         #expect(zeroSpanIsEmpty)
 
@@ -325,8 +284,6 @@ struct `Graph Traversal First Breadth Tests` {
         #expect(firstNode == a)
     }
 }
-
-// MARK: - Topological Tests
 
 @Suite
 struct `Graph Traversal Topological Tests` {
@@ -339,8 +296,6 @@ struct `Graph Traversal Topological Tests` {
 
         let nodes = order.map { $0.node }
 
-        // A must come before B and C
-        // B and C must come before D
         let aIndex = nodes.firstIndex(of: a)!
         let bIndex = nodes.firstIndex(of: b)!
         let cIndex = nodes.firstIndex(of: c)!
@@ -356,7 +311,6 @@ struct `Graph Traversal Topological Tests` {
     func `Topological order detects cycles`() {
         var builder = Graph.Sequential<TestTag, TestPayload>.Builder()
 
-        // A -> B -> C -> A (cycle)
         let a = builder.allocate(TestPayload(name: "A", successors: []))
         let b = builder.allocate(TestPayload(name: "B", successors: []))
         let c = builder.allocate(TestPayload(name: "C", successors: [a]))

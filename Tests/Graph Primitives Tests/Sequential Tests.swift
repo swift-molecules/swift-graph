@@ -1,8 +1,6 @@
 import Graph_Primitives_Test_Support
 import Testing
 
-// MARK: - Test Types
-
 private enum TestTag {}
 
 private struct TestPayload: Sendable {
@@ -11,18 +9,15 @@ private struct TestPayload: Sendable {
 }
 
 extension TestPayload {
-    /// Extract for TestPayload adjacency.
+
     static var extract: Graph.Adjacency.Extract<TestPayload, TestTag, [Graph.Node<TestTag>]> {
         Graph.Adjacency.Extract { $0.successors }
     }
 
-    /// Default value for TestPayload holes.
     static var defaultValue: Graph.Default.Value<TestPayload> {
         Graph.Default.Value(TestPayload(name: "hole", successors: []))
     }
 }
-
-// MARK: - Sequential Tests
 
 @Suite
 struct `Graph Sequential Tests` {
@@ -68,11 +63,6 @@ struct `Graph Sequential Tests` {
         _ = builder.allocate(TestPayload(name: "C", successors: []))
         let graph = builder.build()
 
-        // Iterate the concrete `Vector.Iterator` (Swift.Sequence). The
-        // `Sequenceable.map { … }.collect()` eager-map path instantiates a
-        // generic `Sequence.Map<Vector<Tagged>>.Eager` wrapper whose metadata
-        // demangling trips the §A9 Tagged-metadata SIGSEGV on Swift 6.3.x; the
-        // direct loop sidesteps it and runs on the current toolchain.
         var names: [String] = []
         for node in graph.nodes {
             names.append(graph[node].name)
@@ -80,8 +70,6 @@ struct `Graph Sequential Tests` {
         #expect(names == ["A", "B", "C"])
     }
 }
-
-// MARK: - Builder Tests
 
 @Suite
 struct `Graph Sequential Builder Tests` {
@@ -116,11 +104,9 @@ struct `Graph Sequential Builder Tests` {
     func `Forward reference via holes`() {
         var builder = Graph.Sequential<TestTag, TestPayload>.Builder()
 
-        // Allocate hole for forward reference
         let a = builder.allocateHole(using: TestPayload.defaultValue)
         let b = builder.allocate(TestPayload(name: "B", successors: [a]))
 
-        // Fill the hole with reference to b
         builder.fill(a, with: TestPayload(name: "A", successors: [b]))
 
         let graph = builder.build()

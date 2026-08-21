@@ -4,7 +4,6 @@ public import Buffer_Linear_Primitives
 public import Column_Primitives
 public import Hash_Indexed_Primitive
 public import Ownership_Shared_Primitive
-// Hoisted carrier `__SetOrdered` spelled directly ([DS-025]/[DS-028]); not surfaced through the umbrella @_exported import.
 public import Set_Ordered_Primitive
 public import Set_Ordered_Primitives
 internal import Set_Primitives
@@ -14,13 +13,7 @@ public import Tagged_Primitives
 import Vector_Primitives
 
 extension Graph.Sequential.Reverse {
-    /// Nodes that can reach the target (backward reachability).
-    ///
-    /// Uses `Stack` for DFS traversal and `Bit.Array` for visited tracking.
-    ///
-    /// - Parameter target: The target node.
-    /// - Returns: Ordered set of nodes that can reach the target, including the target itself.
-    /// - Complexity: O(V + E)
+
     @inlinable
     public func reachable(
         to target: Graph.Node<Tag>
@@ -30,13 +23,10 @@ extension Graph.Sequential.Reverse {
 
         guard count > .zero else { return result }
 
-        // Validate target
         guard target < count else { return result }
 
-        // Build reversed graph and run forward reachability from target
         let reversedGraph = self.reversed()
 
-        // DFS from target on reversed graph
         let visited = Bit.Vector(capacity: count.retag(Bit.self))
         var stack = Stack<Graph.Node<Tag>>()
 

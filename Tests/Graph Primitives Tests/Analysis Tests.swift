@@ -9,13 +9,11 @@ private struct TestPayload: Sendable {
 }
 
 extension TestPayload {
-    /// Extract for TestPayload adjacency.
+
     static var extract: Graph.Adjacency.Extract<TestPayload, TestTag, [Graph.Node<TestTag>]> {
         Graph.Adjacency.Extract { $0.successors }
     }
 }
-
-// MARK: - Reachability Tests
 
 @Suite
 struct `Graph Sequential Analyze Reachable Tests` {
@@ -23,7 +21,6 @@ struct `Graph Sequential Analyze Reachable Tests` {
     func `Reachable from single root in DAG`() {
         var builder = Graph.Sequential<TestTag, TestPayload>.Builder()
 
-        // Diamond: A -> B, A -> C, B -> D, C -> D
         let d = builder.allocate(TestPayload(name: "D", successors: []))
         let b = builder.allocate(TestPayload(name: "B", successors: [d]))
         let c = builder.allocate(TestPayload(name: "C", successors: [d]))
@@ -31,8 +28,6 @@ struct `Graph Sequential Analyze Reachable Tests` {
 
         let graph = builder.build()
 
-        // `Set<S>.Ordered` is move-only on the direct column; #expect's autoclosure
-        // cannot capture it, so bind copyable results first.
         let reachable = graph.analyze(using: TestPayload.extract).reachable(from: a)
         let count = reachable.count
         let hasA = reachable.contains(a)
@@ -74,7 +69,6 @@ struct `Graph Sequential Analyze Reachable Tests` {
     func `Reachable from multiple roots`() {
         var builder = Graph.Sequential<TestTag, TestPayload>.Builder()
 
-        // Two disconnected chains: A -> B and C -> D
         let b = builder.allocate(TestPayload(name: "B", successors: []))
         let a = builder.allocate(TestPayload(name: "A", successors: [b]))
         let d = builder.allocate(TestPayload(name: "D", successors: []))
@@ -104,8 +98,6 @@ struct `Graph Sequential Analyze Reachable Tests` {
         #expect(hasC)
     }
 }
-
-// MARK: - Cycle Detection Tests
 
 @Suite
 struct `Graph Sequential Analyze Cycles Tests` {
@@ -139,7 +131,6 @@ struct `Graph Sequential Analyze Cycles Tests` {
     func `Cycle in graph detected`() {
         var builder = Graph.Sequential<TestTag, TestPayload>.Builder()
 
-        // A -> B -> C -> A
         let a = builder.allocate(TestPayload(name: "A", successors: []))
         let b = builder.allocate(TestPayload(name: "B", successors: []))
         let c = builder.allocate(TestPayload(name: "C", successors: [a]))
@@ -151,8 +142,6 @@ struct `Graph Sequential Analyze Cycles Tests` {
         #expect(graph.analyze(using: TestPayload.extract).hasCycles(from: a))
     }
 }
-
-// MARK: - SCC Tests
 
 @Suite("Graph.StronglyConnectedComponents")
 struct SCCTests {
@@ -168,7 +157,6 @@ struct SCCTests {
 
         let sccs = graph.analyze(using: TestPayload.extract).scc(from: a)
 
-        // Each node is its own SCC in a DAG
         #expect(sccs.count == 3)
         #expect(sccs.allSatisfy { $0.count == 1 })
     }
@@ -177,7 +165,6 @@ struct SCCTests {
     func `SCC with cycle`() {
         var builder = Graph.Sequential<TestTag, TestPayload>.Builder()
 
-        // A -> B -> C -> A (single SCC containing all three)
         let a = builder.allocate(TestPayload(name: "A", successors: []))
         let b = builder.allocate(TestPayload(name: "B", successors: []))
         let c = builder.allocate(TestPayload(name: "C", successors: [a]))
@@ -188,7 +175,6 @@ struct SCCTests {
 
         let sccs = graph.analyze(using: TestPayload.extract).scc(from: a)
 
-        // All three nodes form one SCC
         #expect(sccs.count == 1)
         #expect(sccs[0].count == 3)
     }
@@ -197,7 +183,6 @@ struct SCCTests {
     func `Multiple SCCs`() {
         var builder = Graph.Sequential<TestTag, TestPayload>.Builder()
 
-        // Two cycles connected: (A <-> B) -> (C <-> D)
         let a = builder.allocate(TestPayload(name: "A", successors: []))
         let b = builder.allocate(TestPayload(name: "B", successors: [a]))
         let c = builder.allocate(TestPayload(name: "C", successors: []))
@@ -210,7 +195,6 @@ struct SCCTests {
 
         let sccs = graph.analyze(using: TestPayload.extract).scc(from: a)
 
-        // Two SCCs: {A, B} and {C, D}
         #expect(sccs.count == 2)
         #expect(sccs.allSatisfy { $0.count == 2 })
     }

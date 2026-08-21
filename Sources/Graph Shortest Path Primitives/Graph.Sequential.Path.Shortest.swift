@@ -4,11 +4,9 @@ public import Buffer_Linear_Primitive
 public import Buffer_Linear_Primitives
 public import Buffer_Ring_Primitive
 public import Column_Primitives
-// Hoisted carrier spelled directly ([DS-025]/[DS-028]); not surfaced through the umbrella @_exported import.
 public import Fixed_Primitive
 public import Fixed_Primitives
 public import Ownership_Shared_Primitive
-// Hoisted carrier spelled directly ([DS-025]/[DS-028]); not surfaced through the umbrella  import.
 public import Queue_Primitive
 public import Queue_Primitives
 public import Tagged_Collection_Primitives
@@ -16,15 +14,7 @@ public import Tagged_Primitives
 import Vector_Primitives
 
 extension Graph.Sequential.Path {
-    /// Shortest path by hop count using BFS.
-    ///
-    /// Uses `Queue` for BFS traversal and `Bit.Vector` for visited tracking.
-    ///
-    /// - Parameters:
-    ///   - source: Starting node.
-    ///   - target: Destination node.
-    /// - Returns: Path from source to target (inclusive), or `nil` if unreachable.
-    /// - Complexity: O(V + E)
+
     @inlinable
     public func shortest(
         from source: Graph.Node<Tag>,
@@ -33,14 +23,11 @@ extension Graph.Sequential.Path {
         let count = graph.count
         guard count > .zero else { return nil }
 
-        // Validate nodes
         guard source < count else { return nil }
         guard target < count else { return nil }
 
-        // Same node is trivially reachable
         if source == target { return [source] }
 
-        // BFS with bit-packed visited tracking and predecessor array
         let visited = Bit.Vector(capacity: count.retag(Bit.self))
         var predecessors = __Fixed<Column.Bounded<Graph.Node<Tag>?>>(
             repeating: nil,
@@ -61,7 +48,7 @@ extension Graph.Sequential.Path {
                     queue.enqueue(adjacent)
 
                     if adjacent == target {
-                        // Found target - reconstruct path
+
                         return reconstructPath(
                             to: target,
                             predecessors: predecessors,
@@ -75,7 +62,6 @@ extension Graph.Sequential.Path {
         return nil
     }
 
-    /// Reconstructs a path from the predecessors array.
     @usableFromInline
     func reconstructPath(
         to target: Graph.Node<Tag>,
