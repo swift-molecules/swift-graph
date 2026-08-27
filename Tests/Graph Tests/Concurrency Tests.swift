@@ -1,4 +1,4 @@
-import Graph_Test_Support
+import Graph
 import Testing
 
 private enum StormTag {}

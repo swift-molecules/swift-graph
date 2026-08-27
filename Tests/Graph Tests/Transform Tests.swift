@@ -1,5 +1,5 @@
 import Column
-import Graph_Test_Support
+import Graph
 import Hash_Indexed_Primitive
 import Set_Ordered_Primitive
 import Testing

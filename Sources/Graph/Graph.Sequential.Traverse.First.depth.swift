@@ -1,5 +1,4 @@
 public import Buffer_Linear_Primitive
-public import Graph_Sequential
 import Ownership_Shared_Primitive
 
 extension Graph.Sequential.Traverse.First {
