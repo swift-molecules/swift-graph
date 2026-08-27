@@ -1,0 +1,118 @@
+public import Bit_Vector
+public import Buffer_Linear_Bounded_Primitive
+public import Buffer_Linear_Primitive
+public import Buffer_Linear
+public import Column
+public import Fixed_Primitive
+public import Fixed
+public import Ownership_Shared_Primitive
+public import Stack
+public import Tagged_Collection
+public import Tagged
+public import Vector
+
+extension Graph.Sequential.Analyze {
+
+    @inlinable
+    public func scc(from roots: some Swift.Sequence<Graph.Node<Tag>>) -> [[Graph.Node<Tag>]] {
+        let count = graph.count
+        guard count > .zero else { return [] }
+
+        var nodeIndex = __Fixed<Column.Bounded<Int>>(repeating: -1, count: count.retag(Int.self))
+        var lowLink = __Fixed<Column.Bounded<Int>>(repeating: 0, count: count.retag(Int.self))
+        let onStack = Bit.Vector(capacity: count.retag(Bit.self))
+
+        var index = 0
+        var sccStack = Stack<Graph.Node<Tag>>()
+        var components = [[Graph.Node<Tag>]]()
+
+        var callStack:
+            [(node: Graph.Node<Tag>, adjacents: [Graph.Node<Tag>], adjIndex: Int, phase: Bool)] = []
+
+        for root in roots {
+            guard root < count else { continue }
+            if nodeIndex[root.retag(Int.self)] != -1 { continue }
+
+            let rootPayload = graph.storage[root]
+            let rootAdjacents = Swift.Array(extract.adjacent(rootPayload))
+            callStack.append((root, rootAdjacents, 0, true))
+
+            while !callStack.isEmpty {
+                let frameIndex = callStack.endIndex - 1
+                var frame = callStack[frameIndex]
+                let node = frame.node
+
+                if frame.phase {
+
+                    nodeIndex[node.retag(Int.self)] = index
+                    lowLink[node.retag(Int.self)] = index
+                    index += 1
+                    sccStack.push(frame.node)
+                    onStack[frame.node.retag(Bit.self)] = true
+
+                    callStack[frameIndex].phase = false
+                    frame.phase = false
+                }
+
+                var pushedChild = false
+                while frame.adjIndex < frame.adjacents.count {
+                    let adjacent = frame.adjacents[frame.adjIndex]
+                    callStack[frameIndex].adjIndex += 1
+                    frame.adjIndex += 1
+
+                    if nodeIndex[adjacent.retag(Int.self)] == -1 {
+
+                        let adjPayload = graph.storage[adjacent]
+                        let adjAdjacents = Swift.Array(extract.adjacent(adjPayload))
+                        callStack.append((adjacent, adjAdjacents, 0, true))
+                        pushedChild = true
+                        break
+                    } else if onStack[adjacent.retag(Bit.self)] {
+
+                        lowLink[node.retag(Int.self)] = min(
+                            lowLink[node.retag(Int.self)],
+                            nodeIndex[adjacent.retag(Int.self)]
+                        )
+                    }
+
+                }
+
+                if pushedChild {
+                    continue
+                }
+
+                callStack.removeLast()
+
+                if lowLink[node.retag(Int.self)] == nodeIndex[node.retag(Int.self)] {
+
+                    var component = [Graph.Node<Tag>]()
+                    repeat {
+                        guard let w = sccStack.pop() else { break }
+                        onStack[w.retag(Bit.self)] = false
+                        component.append(w)
+                    } while component.last != frame.node
+                    components.append(component)
+                }
+
+                if let parent = callStack.last?.node {
+                    lowLink[parent.retag(Int.self)] = min(
+                        lowLink[parent.retag(Int.self)],
+                        lowLink[node.retag(Int.self)]
+                    )
+                }
+            }
+        }
+
+        return components
+    }
+
+    @inlinable
+    public func scc(from root: Graph.Node<Tag>) -> [[Graph.Node<Tag>]] {
+        scc(from: Swift.CollectionOfOne(root))
+    }
+
+    @inlinable
+    public func scc() -> [[Graph.Node<Tag>]] {
+        scc(from: graph.nodes)
+    }
+}

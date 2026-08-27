@@ -1,7 +1,7 @@
-# Graph Primitives
+# Graph
 
 ![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
-[![CI](https://github.com/swift-primitives/swift-graph-primitives/actions/workflows/ci.yml/badge.svg)](https://github.com/swift-primitives/swift-graph-primitives/actions/workflows/ci.yml)
+[![CI](https://github.com/swift-molecules/swift-graph/actions/workflows/ci.yml/badge.svg)](https://github.com/swift-molecules/swift-graph/actions/workflows/ci.yml)
 
 `Graph.Sequential<Tag, Payload>` — an immutable directed graph with sequentially-allocated nodes. Payloads live in a dense array where each node's identity is its index, so node lookup is O(1) and traversal is cache-friendly. You build a graph with a `Builder` — allocate nodes with payloads, then `build()` — and the result is immutable.
 
@@ -22,7 +22,7 @@ On top of the graph sits a rich traversal and analysis surface: depth-first and 
 ## Quick Start
 
 ```swift
-import Graph_Primitives
+import Graph
 
 enum Tag {}
 var builder = Graph.Sequential<Tag, Int>.Builder()
@@ -43,7 +43,7 @@ Add the dependency to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-primitives/swift-graph-primitives.git", branch: "main")
+    .package(url: "https://github.com/swift-molecules/swift-graph.git", branch: "main")
 ]
 ```
 
@@ -53,7 +53,7 @@ Add a product to your target:
 .target(
     name: "App",
     dependencies: [
-        .product(name: "Graph Primitives", package: "swift-graph-primitives")
+        .product(name: "Graph", package: "swift-graph")
     ]
 )
 ```
@@ -66,11 +66,11 @@ The package is pre-1.0 — depend on `branch: "main"` until `0.1.0` is tagged. R
 
 | Product | Contents | When to import |
 |---------|----------|----------------|
-| `Graph Primitives` | Umbrella — the graph, its `Builder`, and all traversals/analyses | Most consumers |
-| `Graph Sequential Primitives` | `Graph.Sequential`, its `Builder`, and the operation namespaces | The graph type + construction only |
-| `Graph Index` / `Adjacency` / `Traversal` / `Remappable Primitives` | Node identity / adjacency payload / traversal markers / node remapping | A single foundational sub-namespace |
-| `Graph DFS` / `BFS` / `Topological Primitives` | Depth-first / breadth-first / topological traversal | A single traversal |
-| `Graph SCC` / `Cycles` / `Reachable` / `Dead Primitives` | Strongly-connected components / cycles / reachability / dead-node analysis | A single analysis |
+| `Graph` | Umbrella — the graph, its `Builder`, and all traversals/analyses | Most consumers |
+| `Graph Sequential` | `Graph.Sequential`, its `Builder`, and the operation namespaces | The graph type + construction only |
+| `Graph Index` / `Adjacency` / `Traversal` / `Remappable` | Node identity / adjacency payload / traversal markers / node remapping | A single foundational sub-namespace |
+| `Graph DFS` / `BFS` / `Topological` | Depth-first / breadth-first / topological traversal | A single traversal |
+| `Graph SCC` / `Cycles` / `Reachable` / `Dead` | Strongly-connected components / cycles / reachability / dead-node analysis | A single analysis |
 
 ---
 
@@ -88,9 +88,9 @@ The package is pre-1.0 — depend on `branch: "main"` until `0.1.0` is tagged. R
 
 ## Related Packages
 
-- [`swift-array-primitives`](https://github.com/swift-primitives/swift-array-primitives) — the dense payload storage a graph is built over.
-- [`swift-set-primitives`](https://github.com/swift-primitives/swift-set-primitives) — the ordered sets reachability and dead-node analyses return.
-- [`swift-heap-primitives`](https://github.com/swift-primitives/swift-heap-primitives) — the priority queue behind priority-first traversals.
+- [`swift-array`](https://github.com/swift-molecules/swift-array) — the dense payload storage a graph is built over.
+- [`swift-set`](https://github.com/swift-molecules/swift-set) — the ordered sets reachability and dead-node analyses return.
+- [`swift-heap`](https://github.com/swift-molecules/swift-heap) — the priority queue behind priority-first traversals.
 
 ---
 

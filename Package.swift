@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "swift-graph-primitives",
+    name: "swift-graph",
     platforms: [
         .macOS(.v27),
         .iOS(.v27),
@@ -18,168 +18,168 @@ let package = Package(
             targets: ["Graph Primitive"]
         ),
         .library(
-            name: "Graph Index Primitives",
-            targets: ["Graph Index Primitives"]
+            name: "Graph Index",
+            targets: ["Graph Index"]
         ),
         .library(
-            name: "Graph Adjacency Primitives",
-            targets: ["Graph Adjacency Primitives"]
+            name: "Graph Adjacency",
+            targets: ["Graph Adjacency"]
         ),
         .library(
-            name: "Graph Traversal Primitives",
-            targets: ["Graph Traversal Primitives"]
+            name: "Graph Traversal",
+            targets: ["Graph Traversal"]
         ),
         .library(
-            name: "Graph Sequential Primitives",
-            targets: ["Graph Sequential Primitives"]
+            name: "Graph Sequential",
+            targets: ["Graph Sequential"]
         ),
         .library(
-            name: "Graph Remappable Primitives",
-            targets: ["Graph Remappable Primitives"]
-        ),
-
-        .library(
-            name: "Graph DFS Primitives",
-            targets: ["Graph DFS Primitives"]
-        ),
-        .library(
-            name: "Graph BFS Primitives",
-            targets: ["Graph BFS Primitives"]
-        ),
-        .library(
-            name: "Graph Topological Primitives",
-            targets: ["Graph Topological Primitives"]
-        ),
-        .library(
-            name: "Graph Reachable Primitives",
-            targets: ["Graph Reachable Primitives"]
-        ),
-        .library(
-            name: "Graph Dead Primitives",
-            targets: ["Graph Dead Primitives"]
-        ),
-        .library(
-            name: "Graph SCC Primitives",
-            targets: ["Graph SCC Primitives"]
-        ),
-        .library(
-            name: "Graph Cycles Primitives",
-            targets: ["Graph Cycles Primitives"]
-        ),
-        .library(
-            name: "Graph Transitive Closure Primitives",
-            targets: ["Graph Transitive Closure Primitives"]
-        ),
-        .library(
-            name: "Graph Path Exists Primitives",
-            targets: ["Graph Path Exists Primitives"]
-        ),
-        .library(
-            name: "Graph Shortest Path Primitives",
-            targets: ["Graph Shortest Path Primitives"]
-        ),
-        .library(
-            name: "Graph Weighted Path Primitives",
-            targets: ["Graph Weighted Path Primitives"]
-        ),
-        .library(
-            name: "Graph Payload Map Primitives",
-            targets: ["Graph Payload Map Primitives"]
-        ),
-        .library(
-            name: "Graph Subgraph Primitives",
-            targets: ["Graph Subgraph Primitives"]
-        ),
-        .library(
-            name: "Graph Reverse Primitives",
-            targets: ["Graph Reverse Primitives"]
-        ),
-        .library(
-            name: "Graph Backward Reachable Primitives",
-            targets: ["Graph Backward Reachable Primitives"]
+            name: "Graph Remappable",
+            targets: ["Graph Remappable"]
         ),
 
         .library(
-            name: "Graph Primitives",
-            targets: ["Graph Primitives"]
+            name: "Graph DFS",
+            targets: ["Graph DFS"]
+        ),
+        .library(
+            name: "Graph BFS",
+            targets: ["Graph BFS"]
+        ),
+        .library(
+            name: "Graph Topological",
+            targets: ["Graph Topological"]
+        ),
+        .library(
+            name: "Graph Reachable",
+            targets: ["Graph Reachable"]
+        ),
+        .library(
+            name: "Graph Dead",
+            targets: ["Graph Dead"]
+        ),
+        .library(
+            name: "Graph SCC",
+            targets: ["Graph SCC"]
+        ),
+        .library(
+            name: "Graph Cycles",
+            targets: ["Graph Cycles"]
+        ),
+        .library(
+            name: "Graph Transitive Closure",
+            targets: ["Graph Transitive Closure"]
+        ),
+        .library(
+            name: "Graph Path Exists",
+            targets: ["Graph Path Exists"]
+        ),
+        .library(
+            name: "Graph Shortest Path",
+            targets: ["Graph Shortest Path"]
+        ),
+        .library(
+            name: "Graph Weighted Path",
+            targets: ["Graph Weighted Path"]
+        ),
+        .library(
+            name: "Graph Payload Map",
+            targets: ["Graph Payload Map"]
+        ),
+        .library(
+            name: "Graph Subgraph",
+            targets: ["Graph Subgraph"]
+        ),
+        .library(
+            name: "Graph Reverse",
+            targets: ["Graph Reverse"]
+        ),
+        .library(
+            name: "Graph Backward Reachable",
+            targets: ["Graph Backward Reachable"]
         ),
 
         .library(
-            name: "Graph Primitives Test Support",
-            targets: ["Graph Primitives Test Support"]
+            name: "Graph",
+            targets: ["Graph"]
+        ),
+
+        .library(
+            name: "Graph Test Support",
+            targets: ["Graph Test Support"]
         ),
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-primitives/swift-tagged-primitives.git",
+            url: "https://github.com/swift-molecules/swift-tagged.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-tagged-collection-primitives.git",
+            url: "https://github.com/swift-molecules/swift-tagged-collection.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-stack-primitives.git",
+            url: "https://github.com/swift-molecules/swift-stack.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-set-primitives.git",
+            url: "https://github.com/swift-molecules/swift-set.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-set-ordered-primitives.git",
+            url: "https://github.com/swift-molecules/swift-set-ordered.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-heap-primitives.git",
+            url: "https://github.com/swift-molecules/swift-heap.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-index-primitives.git",
+            url: "https://github.com/swift-molecules/swift-index.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-array-primitives.git",
+            url: "https://github.com/swift-molecules/swift-array.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-fixed-primitives.git",
+            url: "https://github.com/swift-molecules/swift-fixed.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-column-primitives.git",
+            url: "https://github.com/swift-molecules/swift-column.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-hash-table-primitives.git",
+            url: "https://github.com/swift-molecules/swift-hash-table.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-ownership-shared-primitives.git",
+            url: "https://github.com/swift-molecules/swift-ownership-shared.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-buffer-linear-primitives.git",
+            url: "https://github.com/swift-molecules/swift-buffer-linear.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-buffer-ring-primitives.git",
+            url: "https://github.com/swift-molecules/swift-buffer-ring.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-queue-primitives.git",
+            url: "https://github.com/swift-molecules/swift-queue.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-bit-vector-primitives.git",
+            url: "https://github.com/swift-molecules/swift-bit-vector.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-iterator-primitives.git",
+            url: "https://github.com/swift-molecules/swift-iterator.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-vector-primitives.git",
+            url: "https://github.com/swift-molecules/swift-vector.git",
             branch: "main"
         ),
     ],
@@ -190,526 +190,526 @@ let package = Package(
             dependencies: []
         ),
         .target(
-            name: "Graph Index Primitives",
+            name: "Graph Index",
             dependencies: [
                 "Graph Primitive",
-                .product(name: "Index Primitives", package: "swift-index-primitives"),
+                .product(name: "Index", package: "swift-index"),
             ]
         ),
         .target(
-            name: "Graph Adjacency Primitives",
+            name: "Graph Adjacency",
             dependencies: [
                 "Graph Primitive",
-                "Graph Index Primitives",
+                "Graph Index",
             ]
         ),
         .target(
-            name: "Graph Traversal Primitives",
+            name: "Graph Traversal",
             dependencies: [
                 "Graph Primitive"
             ]
         ),
         .target(
-            name: "Graph Sequential Primitives",
+            name: "Graph Sequential",
             dependencies: [
                 "Graph Primitive",
-                "Graph Index Primitives",
-                "Graph Adjacency Primitives",
-                .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
+                "Graph Index",
+                "Graph Adjacency",
+                .product(name: "Tagged", package: "swift-tagged"),
                 .product(
-                    name: "Tagged Collection Primitives",
-                    package: "swift-tagged-collection-primitives"
+                    name: "Tagged Collection",
+                    package: "swift-tagged-collection"
                 ),
-                .product(name: "Index Primitives", package: "swift-index-primitives"),
-                .product(name: "Array Primitives", package: "swift-array-primitives"),
-                .product(name: "Array Primitive", package: "swift-array-primitives"),
-                .product(name: "Column Primitives", package: "swift-column-primitives"),
+                .product(name: "Index", package: "swift-index"),
+                .product(name: "Array", package: "swift-array"),
+                .product(name: "Array Primitive", package: "swift-array"),
+                .product(name: "Column", package: "swift-column"),
                 .product(
                     name: "Ownership Shared Primitive",
-                    package: "swift-ownership-shared-primitives"
+                    package: "swift-ownership-shared"
                 ),
                 .product(
                     name: "Buffer Linear Primitive",
-                    package: "swift-buffer-linear-primitives"
+                    package: "swift-buffer-linear"
                 ),
                 .product(
-                    name: "Buffer Linear Primitives",
-                    package: "swift-buffer-linear-primitives"
+                    name: "Buffer Linear",
+                    package: "swift-buffer-linear"
                 ),
-                .product(name: "Vector Primitives", package: "swift-vector-primitives"),
+                .product(name: "Vector", package: "swift-vector"),
             ]
         ),
         .target(
-            name: "Graph Remappable Primitives",
+            name: "Graph Remappable",
             dependencies: [
                 "Graph Primitive",
-                "Graph Adjacency Primitives",
+                "Graph Adjacency",
             ]
         ),
 
         .target(
-            name: "Graph DFS Primitives",
+            name: "Graph DFS",
             dependencies: [
-                "Graph Sequential Primitives",
-                "Graph Traversal Primitives",
-                .product(name: "Stack Primitives", package: "swift-stack-primitives"),
-                .product(name: "Bit Vector Primitives", package: "swift-bit-vector-primitives"),
-                .product(name: "Iterator Chunk Primitives", package: "swift-iterator-primitives"),
+                "Graph Sequential",
+                "Graph Traversal",
+                .product(name: "Stack", package: "swift-stack"),
+                .product(name: "Bit Vector", package: "swift-bit-vector"),
+                .product(name: "Iterator Chunk", package: "swift-iterator"),
                 .product(
-                    name: "Tagged Collection Primitives",
-                    package: "swift-tagged-collection-primitives"
+                    name: "Tagged Collection",
+                    package: "swift-tagged-collection"
                 ),
-                .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
-                .product(name: "Array Primitives", package: "swift-array-primitives"),
-                .product(name: "Array Primitive", package: "swift-array-primitives"),
-                .product(name: "Column Primitives", package: "swift-column-primitives"),
+                .product(name: "Tagged", package: "swift-tagged"),
+                .product(name: "Array", package: "swift-array"),
+                .product(name: "Array Primitive", package: "swift-array"),
+                .product(name: "Column", package: "swift-column"),
                 .product(
                     name: "Ownership Shared Primitive",
-                    package: "swift-ownership-shared-primitives"
+                    package: "swift-ownership-shared"
                 ),
                 .product(
                     name: "Buffer Linear Primitive",
-                    package: "swift-buffer-linear-primitives"
+                    package: "swift-buffer-linear"
                 ),
-                .product(name: "Vector Primitives", package: "swift-vector-primitives"),
+                .product(name: "Vector", package: "swift-vector"),
             ]
         ),
         .target(
-            name: "Graph BFS Primitives",
+            name: "Graph BFS",
             dependencies: [
-                "Graph Sequential Primitives",
-                "Graph Traversal Primitives",
-                .product(name: "Queue Primitives", package: "swift-queue-primitives"),
-                .product(name: "Queue Primitive", package: "swift-queue-primitives"),
-                .product(name: "Bit Vector Primitives", package: "swift-bit-vector-primitives"),
-                .product(name: "Iterator Chunk Primitives", package: "swift-iterator-primitives"),
+                "Graph Sequential",
+                "Graph Traversal",
+                .product(name: "Queue", package: "swift-queue"),
+                .product(name: "Queue Primitive", package: "swift-queue"),
+                .product(name: "Bit Vector", package: "swift-bit-vector"),
+                .product(name: "Iterator Chunk", package: "swift-iterator"),
                 .product(
-                    name: "Tagged Collection Primitives",
-                    package: "swift-tagged-collection-primitives"
+                    name: "Tagged Collection",
+                    package: "swift-tagged-collection"
                 ),
-                .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
-                .product(name: "Array Primitives", package: "swift-array-primitives"),
-                .product(name: "Array Primitive", package: "swift-array-primitives"),
-                .product(name: "Column Primitives", package: "swift-column-primitives"),
+                .product(name: "Tagged", package: "swift-tagged"),
+                .product(name: "Array", package: "swift-array"),
+                .product(name: "Array Primitive", package: "swift-array"),
+                .product(name: "Column", package: "swift-column"),
                 .product(
                     name: "Ownership Shared Primitive",
-                    package: "swift-ownership-shared-primitives"
+                    package: "swift-ownership-shared"
                 ),
                 .product(
                     name: "Buffer Linear Primitive",
-                    package: "swift-buffer-linear-primitives"
+                    package: "swift-buffer-linear"
                 ),
                 .product(
-                    name: "Buffer Linear Primitives",
-                    package: "swift-buffer-linear-primitives"
+                    name: "Buffer Linear",
+                    package: "swift-buffer-linear"
                 ),
-                .product(name: "Buffer Ring Primitive", package: "swift-buffer-ring-primitives"),
-                .product(name: "Vector Primitives", package: "swift-vector-primitives"),
+                .product(name: "Buffer Ring Primitive", package: "swift-buffer-ring"),
+                .product(name: "Vector", package: "swift-vector"),
             ]
         ),
         .target(
-            name: "Graph Topological Primitives",
+            name: "Graph Topological",
             dependencies: [
-                "Graph Sequential Primitives",
-                "Graph Traversal Primitives",
-                .product(name: "Stack Primitives", package: "swift-stack-primitives"),
-                .product(name: "Bit Vector Primitives", package: "swift-bit-vector-primitives"),
+                "Graph Sequential",
+                "Graph Traversal",
+                .product(name: "Stack", package: "swift-stack"),
+                .product(name: "Bit Vector", package: "swift-bit-vector"),
                 .product(
-                    name: "Tagged Collection Primitives",
-                    package: "swift-tagged-collection-primitives"
+                    name: "Tagged Collection",
+                    package: "swift-tagged-collection"
                 ),
-                .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
-                .product(name: "Array Primitives", package: "swift-array-primitives"),
-                .product(name: "Array Primitive", package: "swift-array-primitives"),
-                .product(name: "Column Primitives", package: "swift-column-primitives"),
+                .product(name: "Tagged", package: "swift-tagged"),
+                .product(name: "Array", package: "swift-array"),
+                .product(name: "Array Primitive", package: "swift-array"),
+                .product(name: "Column", package: "swift-column"),
                 .product(
                     name: "Ownership Shared Primitive",
-                    package: "swift-ownership-shared-primitives"
+                    package: "swift-ownership-shared"
                 ),
                 .product(
                     name: "Buffer Linear Primitive",
-                    package: "swift-buffer-linear-primitives"
+                    package: "swift-buffer-linear"
                 ),
-                .product(name: "Vector Primitives", package: "swift-vector-primitives"),
+                .product(name: "Vector", package: "swift-vector"),
             ]
         ),
 
         .target(
-            name: "Graph Reachable Primitives",
+            name: "Graph Reachable",
             dependencies: [
-                "Graph Sequential Primitives",
-                .product(name: "Stack Primitives", package: "swift-stack-primitives"),
-                .product(name: "Bit Vector Primitives", package: "swift-bit-vector-primitives"),
-                .product(name: "Set Ordered Primitives", package: "swift-set-ordered-primitives"),
-                .product(name: "Set Ordered Primitive", package: "swift-set-ordered-primitives"),
-                .product(name: "Set Primitives", package: "swift-set-primitives"),
-                .product(name: "Hash Indexed Primitive", package: "swift-hash-table-primitives"),
-                .product(name: "Column Primitives", package: "swift-column-primitives"),
+                "Graph Sequential",
+                .product(name: "Stack", package: "swift-stack"),
+                .product(name: "Bit Vector", package: "swift-bit-vector"),
+                .product(name: "Set Ordered", package: "swift-set-ordered"),
+                .product(name: "Set Ordered Primitive", package: "swift-set-ordered"),
+                .product(name: "Set", package: "swift-set"),
+                .product(name: "Hash Indexed Primitive", package: "swift-hash-table"),
+                .product(name: "Column", package: "swift-column"),
                 .product(
                     name: "Ownership Shared Primitive",
-                    package: "swift-ownership-shared-primitives"
+                    package: "swift-ownership-shared"
                 ),
                 .product(
                     name: "Buffer Linear Primitive",
-                    package: "swift-buffer-linear-primitives"
+                    package: "swift-buffer-linear"
                 ),
                 .product(
-                    name: "Tagged Collection Primitives",
-                    package: "swift-tagged-collection-primitives"
+                    name: "Tagged Collection",
+                    package: "swift-tagged-collection"
                 ),
-                .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
-                .product(name: "Vector Primitives", package: "swift-vector-primitives"),
+                .product(name: "Tagged", package: "swift-tagged"),
+                .product(name: "Vector", package: "swift-vector"),
             ]
         ),
         .target(
-            name: "Graph Dead Primitives",
+            name: "Graph Dead",
             dependencies: [
-                "Graph Sequential Primitives",
-                "Graph Reachable Primitives",
-                .product(name: "Stack Primitives", package: "swift-stack-primitives"),
-                .product(name: "Bit Vector Primitives", package: "swift-bit-vector-primitives"),
-                .product(name: "Set Ordered Primitives", package: "swift-set-ordered-primitives"),
-                .product(name: "Set Ordered Primitive", package: "swift-set-ordered-primitives"),
-                .product(name: "Set Primitives", package: "swift-set-primitives"),
-                .product(name: "Hash Indexed Primitive", package: "swift-hash-table-primitives"),
-                .product(name: "Column Primitives", package: "swift-column-primitives"),
+                "Graph Sequential",
+                "Graph Reachable",
+                .product(name: "Stack", package: "swift-stack"),
+                .product(name: "Bit Vector", package: "swift-bit-vector"),
+                .product(name: "Set Ordered", package: "swift-set-ordered"),
+                .product(name: "Set Ordered Primitive", package: "swift-set-ordered"),
+                .product(name: "Set", package: "swift-set"),
+                .product(name: "Hash Indexed Primitive", package: "swift-hash-table"),
+                .product(name: "Column", package: "swift-column"),
                 .product(
                     name: "Ownership Shared Primitive",
-                    package: "swift-ownership-shared-primitives"
+                    package: "swift-ownership-shared"
                 ),
                 .product(
                     name: "Buffer Linear Primitive",
-                    package: "swift-buffer-linear-primitives"
+                    package: "swift-buffer-linear"
                 ),
                 .product(
-                    name: "Tagged Collection Primitives",
-                    package: "swift-tagged-collection-primitives"
+                    name: "Tagged Collection",
+                    package: "swift-tagged-collection"
                 ),
-                .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
-                .product(name: "Vector Primitives", package: "swift-vector-primitives"),
+                .product(name: "Tagged", package: "swift-tagged"),
+                .product(name: "Vector", package: "swift-vector"),
             ]
         ),
         .target(
-            name: "Graph SCC Primitives",
+            name: "Graph SCC",
             dependencies: [
-                "Graph Sequential Primitives",
-                .product(name: "Stack Primitives", package: "swift-stack-primitives"),
-                .product(name: "Bit Vector Primitives", package: "swift-bit-vector-primitives"),
+                "Graph Sequential",
+                .product(name: "Stack", package: "swift-stack"),
+                .product(name: "Bit Vector", package: "swift-bit-vector"),
                 .product(
-                    name: "Tagged Collection Primitives",
-                    package: "swift-tagged-collection-primitives"
+                    name: "Tagged Collection",
+                    package: "swift-tagged-collection"
                 ),
-                .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
-                .product(name: "Fixed Primitives", package: "swift-fixed-primitives"),
-                .product(name: "Fixed Primitive", package: "swift-fixed-primitives"),
-                .product(name: "Column Primitives", package: "swift-column-primitives"),
+                .product(name: "Tagged", package: "swift-tagged"),
+                .product(name: "Fixed", package: "swift-fixed"),
+                .product(name: "Fixed Primitive", package: "swift-fixed"),
+                .product(name: "Column", package: "swift-column"),
                 .product(
                     name: "Ownership Shared Primitive",
-                    package: "swift-ownership-shared-primitives"
+                    package: "swift-ownership-shared"
                 ),
                 .product(
                     name: "Buffer Linear Primitive",
-                    package: "swift-buffer-linear-primitives"
+                    package: "swift-buffer-linear"
                 ),
                 .product(
                     name: "Buffer Linear Bounded Primitive",
-                    package: "swift-buffer-linear-primitives"
+                    package: "swift-buffer-linear"
                 ),
-                .product(name: "Vector Primitives", package: "swift-vector-primitives"),
+                .product(name: "Vector", package: "swift-vector"),
             ]
         ),
         .target(
-            name: "Graph Cycles Primitives",
+            name: "Graph Cycles",
             dependencies: [
-                "Graph Sequential Primitives",
-                "Graph Topological Primitives",
-                .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
+                "Graph Sequential",
+                "Graph Topological",
+                .product(name: "Tagged", package: "swift-tagged"),
             ]
         ),
         .target(
-            name: "Graph Transitive Closure Primitives",
+            name: "Graph Transitive Closure",
             dependencies: [
-                "Graph Sequential Primitives",
-                .product(name: "Stack Primitives", package: "swift-stack-primitives"),
-                .product(name: "Bit Vector Primitives", package: "swift-bit-vector-primitives"),
+                "Graph Sequential",
+                .product(name: "Stack", package: "swift-stack"),
+                .product(name: "Bit Vector", package: "swift-bit-vector"),
                 .product(
-                    name: "Tagged Collection Primitives",
-                    package: "swift-tagged-collection-primitives"
+                    name: "Tagged Collection",
+                    package: "swift-tagged-collection"
                 ),
-                .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
-                .product(name: "Fixed Primitives", package: "swift-fixed-primitives"),
-                .product(name: "Fixed Primitive", package: "swift-fixed-primitives"),
-                .product(name: "Column Primitives", package: "swift-column-primitives"),
+                .product(name: "Tagged", package: "swift-tagged"),
+                .product(name: "Fixed", package: "swift-fixed"),
+                .product(name: "Fixed Primitive", package: "swift-fixed"),
+                .product(name: "Column", package: "swift-column"),
                 .product(
                     name: "Ownership Shared Primitive",
-                    package: "swift-ownership-shared-primitives"
+                    package: "swift-ownership-shared"
                 ),
                 .product(
                     name: "Buffer Linear Primitive",
-                    package: "swift-buffer-linear-primitives"
+                    package: "swift-buffer-linear"
                 ),
                 .product(
                     name: "Buffer Linear Bounded Primitive",
-                    package: "swift-buffer-linear-primitives"
+                    package: "swift-buffer-linear"
                 ),
-                .product(name: "Vector Primitives", package: "swift-vector-primitives"),
+                .product(name: "Vector", package: "swift-vector"),
             ]
         ),
 
         .target(
-            name: "Graph Path Exists Primitives",
+            name: "Graph Path Exists",
             dependencies: [
-                "Graph Sequential Primitives",
-                .product(name: "Queue Primitives", package: "swift-queue-primitives"),
-                .product(name: "Queue Primitive", package: "swift-queue-primitives"),
-                .product(name: "Bit Vector Primitives", package: "swift-bit-vector-primitives"),
+                "Graph Sequential",
+                .product(name: "Queue", package: "swift-queue"),
+                .product(name: "Queue Primitive", package: "swift-queue"),
+                .product(name: "Bit Vector", package: "swift-bit-vector"),
                 .product(
-                    name: "Tagged Collection Primitives",
-                    package: "swift-tagged-collection-primitives"
+                    name: "Tagged Collection",
+                    package: "swift-tagged-collection"
                 ),
-                .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
-                .product(name: "Column Primitives", package: "swift-column-primitives"),
+                .product(name: "Tagged", package: "swift-tagged"),
+                .product(name: "Column", package: "swift-column"),
                 .product(
                     name: "Ownership Shared Primitive",
-                    package: "swift-ownership-shared-primitives"
+                    package: "swift-ownership-shared"
                 ),
                 .product(
                     name: "Buffer Linear Primitive",
-                    package: "swift-buffer-linear-primitives"
+                    package: "swift-buffer-linear"
                 ),
                 .product(
-                    name: "Buffer Linear Primitives",
-                    package: "swift-buffer-linear-primitives"
+                    name: "Buffer Linear",
+                    package: "swift-buffer-linear"
                 ),
-                .product(name: "Buffer Ring Primitive", package: "swift-buffer-ring-primitives"),
-                .product(name: "Vector Primitives", package: "swift-vector-primitives"),
+                .product(name: "Buffer Ring Primitive", package: "swift-buffer-ring"),
+                .product(name: "Vector", package: "swift-vector"),
             ]
         ),
         .target(
-            name: "Graph Shortest Path Primitives",
+            name: "Graph Shortest Path",
             dependencies: [
-                "Graph Sequential Primitives",
-                .product(name: "Queue Primitives", package: "swift-queue-primitives"),
-                .product(name: "Queue Primitive", package: "swift-queue-primitives"),
-                .product(name: "Bit Vector Primitives", package: "swift-bit-vector-primitives"),
+                "Graph Sequential",
+                .product(name: "Queue", package: "swift-queue"),
+                .product(name: "Queue Primitive", package: "swift-queue"),
+                .product(name: "Bit Vector", package: "swift-bit-vector"),
                 .product(
-                    name: "Tagged Collection Primitives",
-                    package: "swift-tagged-collection-primitives"
+                    name: "Tagged Collection",
+                    package: "swift-tagged-collection"
                 ),
-                .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
-                .product(name: "Fixed Primitives", package: "swift-fixed-primitives"),
-                .product(name: "Fixed Primitive", package: "swift-fixed-primitives"),
-                .product(name: "Column Primitives", package: "swift-column-primitives"),
+                .product(name: "Tagged", package: "swift-tagged"),
+                .product(name: "Fixed", package: "swift-fixed"),
+                .product(name: "Fixed Primitive", package: "swift-fixed"),
+                .product(name: "Column", package: "swift-column"),
                 .product(
                     name: "Ownership Shared Primitive",
-                    package: "swift-ownership-shared-primitives"
+                    package: "swift-ownership-shared"
                 ),
                 .product(
                     name: "Buffer Linear Primitive",
-                    package: "swift-buffer-linear-primitives"
+                    package: "swift-buffer-linear"
                 ),
                 .product(
-                    name: "Buffer Linear Primitives",
-                    package: "swift-buffer-linear-primitives"
+                    name: "Buffer Linear",
+                    package: "swift-buffer-linear"
                 ),
                 .product(
                     name: "Buffer Linear Bounded Primitive",
-                    package: "swift-buffer-linear-primitives"
+                    package: "swift-buffer-linear"
                 ),
-                .product(name: "Buffer Ring Primitive", package: "swift-buffer-ring-primitives"),
-                .product(name: "Vector Primitives", package: "swift-vector-primitives"),
+                .product(name: "Buffer Ring Primitive", package: "swift-buffer-ring"),
+                .product(name: "Vector", package: "swift-vector"),
             ]
         ),
         .target(
-            name: "Graph Weighted Path Primitives",
+            name: "Graph Weighted Path",
             dependencies: [
-                "Graph Sequential Primitives",
+                "Graph Sequential",
 
-                .product(name: "Heap Primitive", package: "swift-heap-primitives"),
-                .product(name: "Bit Vector Primitives", package: "swift-bit-vector-primitives"),
+                .product(name: "Heap Primitive", package: "swift-heap"),
+                .product(name: "Bit Vector", package: "swift-bit-vector"),
                 .product(
-                    name: "Tagged Collection Primitives",
-                    package: "swift-tagged-collection-primitives"
+                    name: "Tagged Collection",
+                    package: "swift-tagged-collection"
                 ),
-                .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
-                .product(name: "Fixed Primitives", package: "swift-fixed-primitives"),
-                .product(name: "Fixed Primitive", package: "swift-fixed-primitives"),
-                .product(name: "Column Primitives", package: "swift-column-primitives"),
+                .product(name: "Tagged", package: "swift-tagged"),
+                .product(name: "Fixed", package: "swift-fixed"),
+                .product(name: "Fixed Primitive", package: "swift-fixed"),
+                .product(name: "Column", package: "swift-column"),
                 .product(
                     name: "Ownership Shared Primitive",
-                    package: "swift-ownership-shared-primitives"
+                    package: "swift-ownership-shared"
                 ),
                 .product(
                     name: "Buffer Linear Primitive",
-                    package: "swift-buffer-linear-primitives"
+                    package: "swift-buffer-linear"
                 ),
                 .product(
                     name: "Buffer Linear Bounded Primitive",
-                    package: "swift-buffer-linear-primitives"
+                    package: "swift-buffer-linear"
                 ),
-                .product(name: "Vector Primitives", package: "swift-vector-primitives"),
-            ]
-        ),
-
-        .target(
-            name: "Graph Payload Map Primitives",
-            dependencies: [
-                "Graph Sequential Primitives",
-                .product(name: "Vector Primitives", package: "swift-vector-primitives"),
-            ]
-        ),
-        .target(
-            name: "Graph Subgraph Primitives",
-            dependencies: [
-                "Graph Sequential Primitives",
-                "Graph Remappable Primitives",
-                .product(name: "Set Ordered Primitives", package: "swift-set-ordered-primitives"),
-                .product(name: "Set Ordered Primitive", package: "swift-set-ordered-primitives"),
-                .product(name: "Set Primitives", package: "swift-set-primitives"),
-                .product(name: "Hash Indexed Primitive", package: "swift-hash-table-primitives"),
-                .product(
-                    name: "Tagged Collection Primitives",
-                    package: "swift-tagged-collection-primitives"
-                ),
-                .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
-                .product(name: "Fixed Primitives", package: "swift-fixed-primitives"),
-                .product(name: "Fixed Primitive", package: "swift-fixed-primitives"),
-                .product(name: "Column Primitives", package: "swift-column-primitives"),
-                .product(
-                    name: "Ownership Shared Primitive",
-                    package: "swift-ownership-shared-primitives"
-                ),
-                .product(
-                    name: "Buffer Linear Primitive",
-                    package: "swift-buffer-linear-primitives"
-                ),
-                .product(
-                    name: "Buffer Linear Primitives",
-                    package: "swift-buffer-linear-primitives"
-                ),
-                .product(
-                    name: "Buffer Linear Bounded Primitive",
-                    package: "swift-buffer-linear-primitives"
-                ),
+                .product(name: "Vector", package: "swift-vector"),
             ]
         ),
 
         .target(
-            name: "Graph Reverse Primitives",
+            name: "Graph Payload Map",
             dependencies: [
-                "Graph Sequential Primitives",
-                .product(
-                    name: "Tagged Collection Primitives",
-                    package: "swift-tagged-collection-primitives"
-                ),
-                .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
-                .product(name: "Fixed Primitives", package: "swift-fixed-primitives"),
-                .product(name: "Fixed Primitive", package: "swift-fixed-primitives"),
-                .product(name: "Column Primitives", package: "swift-column-primitives"),
-                .product(
-                    name: "Ownership Shared Primitive",
-                    package: "swift-ownership-shared-primitives"
-                ),
-                .product(
-                    name: "Buffer Linear Primitive",
-                    package: "swift-buffer-linear-primitives"
-                ),
-                .product(
-                    name: "Buffer Linear Primitives",
-                    package: "swift-buffer-linear-primitives"
-                ),
-                .product(
-                    name: "Buffer Linear Bounded Primitive",
-                    package: "swift-buffer-linear-primitives"
-                ),
-                .product(name: "Vector Primitives", package: "swift-vector-primitives"),
+                "Graph Sequential",
+                .product(name: "Vector", package: "swift-vector"),
             ]
         ),
         .target(
-            name: "Graph Backward Reachable Primitives",
+            name: "Graph Subgraph",
             dependencies: [
-                "Graph Sequential Primitives",
-                "Graph Reverse Primitives",
-                .product(name: "Stack Primitives", package: "swift-stack-primitives"),
-                .product(name: "Bit Vector Primitives", package: "swift-bit-vector-primitives"),
-                .product(name: "Set Ordered Primitives", package: "swift-set-ordered-primitives"),
-                .product(name: "Set Ordered Primitive", package: "swift-set-ordered-primitives"),
-                .product(name: "Set Primitives", package: "swift-set-primitives"),
-                .product(name: "Hash Indexed Primitive", package: "swift-hash-table-primitives"),
-                .product(name: "Column Primitives", package: "swift-column-primitives"),
+                "Graph Sequential",
+                "Graph Remappable",
+                .product(name: "Set Ordered", package: "swift-set-ordered"),
+                .product(name: "Set Ordered Primitive", package: "swift-set-ordered"),
+                .product(name: "Set", package: "swift-set"),
+                .product(name: "Hash Indexed Primitive", package: "swift-hash-table"),
+                .product(
+                    name: "Tagged Collection",
+                    package: "swift-tagged-collection"
+                ),
+                .product(name: "Tagged", package: "swift-tagged"),
+                .product(name: "Fixed", package: "swift-fixed"),
+                .product(name: "Fixed Primitive", package: "swift-fixed"),
+                .product(name: "Column", package: "swift-column"),
                 .product(
                     name: "Ownership Shared Primitive",
-                    package: "swift-ownership-shared-primitives"
+                    package: "swift-ownership-shared"
                 ),
                 .product(
                     name: "Buffer Linear Primitive",
-                    package: "swift-buffer-linear-primitives"
+                    package: "swift-buffer-linear"
                 ),
                 .product(
-                    name: "Tagged Collection Primitives",
-                    package: "swift-tagged-collection-primitives"
+                    name: "Buffer Linear",
+                    package: "swift-buffer-linear"
                 ),
-                .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
-                .product(name: "Vector Primitives", package: "swift-vector-primitives"),
+                .product(
+                    name: "Buffer Linear Bounded Primitive",
+                    package: "swift-buffer-linear"
+                ),
             ]
         ),
 
         .target(
-            name: "Graph Primitives",
+            name: "Graph Reverse",
+            dependencies: [
+                "Graph Sequential",
+                .product(
+                    name: "Tagged Collection",
+                    package: "swift-tagged-collection"
+                ),
+                .product(name: "Tagged", package: "swift-tagged"),
+                .product(name: "Fixed", package: "swift-fixed"),
+                .product(name: "Fixed Primitive", package: "swift-fixed"),
+                .product(name: "Column", package: "swift-column"),
+                .product(
+                    name: "Ownership Shared Primitive",
+                    package: "swift-ownership-shared"
+                ),
+                .product(
+                    name: "Buffer Linear Primitive",
+                    package: "swift-buffer-linear"
+                ),
+                .product(
+                    name: "Buffer Linear",
+                    package: "swift-buffer-linear"
+                ),
+                .product(
+                    name: "Buffer Linear Bounded Primitive",
+                    package: "swift-buffer-linear"
+                ),
+                .product(name: "Vector", package: "swift-vector"),
+            ]
+        ),
+        .target(
+            name: "Graph Backward Reachable",
+            dependencies: [
+                "Graph Sequential",
+                "Graph Reverse",
+                .product(name: "Stack", package: "swift-stack"),
+                .product(name: "Bit Vector", package: "swift-bit-vector"),
+                .product(name: "Set Ordered", package: "swift-set-ordered"),
+                .product(name: "Set Ordered Primitive", package: "swift-set-ordered"),
+                .product(name: "Set", package: "swift-set"),
+                .product(name: "Hash Indexed Primitive", package: "swift-hash-table"),
+                .product(name: "Column", package: "swift-column"),
+                .product(
+                    name: "Ownership Shared Primitive",
+                    package: "swift-ownership-shared"
+                ),
+                .product(
+                    name: "Buffer Linear Primitive",
+                    package: "swift-buffer-linear"
+                ),
+                .product(
+                    name: "Tagged Collection",
+                    package: "swift-tagged-collection"
+                ),
+                .product(name: "Tagged", package: "swift-tagged"),
+                .product(name: "Vector", package: "swift-vector"),
+            ]
+        ),
+
+        .target(
+            name: "Graph",
             dependencies: [
                 "Graph Primitive",
-                "Graph Index Primitives",
-                "Graph Adjacency Primitives",
-                "Graph Traversal Primitives",
-                "Graph Sequential Primitives",
-                "Graph Remappable Primitives",
-                "Graph DFS Primitives",
-                "Graph BFS Primitives",
-                "Graph Topological Primitives",
-                "Graph Reachable Primitives",
-                "Graph Dead Primitives",
-                "Graph SCC Primitives",
-                "Graph Cycles Primitives",
-                "Graph Transitive Closure Primitives",
-                "Graph Path Exists Primitives",
-                "Graph Shortest Path Primitives",
-                "Graph Weighted Path Primitives",
-                "Graph Payload Map Primitives",
-                "Graph Subgraph Primitives",
-                "Graph Reverse Primitives",
-                "Graph Backward Reachable Primitives",
+                "Graph Index",
+                "Graph Adjacency",
+                "Graph Traversal",
+                "Graph Sequential",
+                "Graph Remappable",
+                "Graph DFS",
+                "Graph BFS",
+                "Graph Topological",
+                "Graph Reachable",
+                "Graph Dead",
+                "Graph SCC",
+                "Graph Cycles",
+                "Graph Transitive Closure",
+                "Graph Path Exists",
+                "Graph Shortest Path",
+                "Graph Weighted Path",
+                "Graph Payload Map",
+                "Graph Subgraph",
+                "Graph Reverse",
+                "Graph Backward Reachable",
             ]
         ),
 
         .target(
-            name: "Graph Primitives Test Support",
+            name: "Graph Test Support",
             dependencies: [
-                "Graph Primitives",
-                .product(name: "Set Primitives Test Support", package: "swift-set-primitives"),
-                .product(name: "Set Primitive", package: "swift-set-primitives"),
-                .product(name: "Set Ordered Primitive", package: "swift-set-ordered-primitives"),
-                .product(name: "Array Primitives Test Support", package: "swift-array-primitives"),
+                "Graph",
+                .product(name: "Set Test Support", package: "swift-set"),
+                .product(name: "Set Primitive", package: "swift-set"),
+                .product(name: "Set Ordered Primitive", package: "swift-set-ordered"),
+                .product(name: "Array Test Support", package: "swift-array"),
                 .product(
-                    name: "Bit Vector Primitives Test Support",
-                    package: "swift-bit-vector-primitives"
+                    name: "Bit Vector Test Support",
+                    package: "swift-bit-vector"
                 ),
-                .product(name: "Hash Indexed Primitive", package: "swift-hash-table-primitives"),
-                .product(name: "Column Primitives", package: "swift-column-primitives"),
+                .product(name: "Hash Indexed Primitive", package: "swift-hash-table"),
+                .product(name: "Column", package: "swift-column"),
                 .product(
                     name: "Buffer Linear Primitive",
-                    package: "swift-buffer-linear-primitives"
+                    package: "swift-buffer-linear"
                 ),
             ],
             path: "Tests/Support"
         ),
         .testTarget(
-            name: "Graph Primitives Tests",
+            name: "Graph Tests",
             dependencies: [
-                "Graph Primitives",
-                "Graph Primitives Test Support",
-                .product(name: "Hash Indexed Primitive", package: "swift-hash-table-primitives"),
-                .product(name: "Column Primitives", package: "swift-column-primitives"),
-                .product(name: "Set Ordered Primitive", package: "swift-set-ordered-primitives"),
+                "Graph",
+                "Graph Test Support",
+                .product(name: "Hash Indexed Primitive", package: "swift-hash-table"),
+                .product(name: "Column", package: "swift-column"),
+                .product(name: "Set Ordered Primitive", package: "swift-set-ordered"),
             ]
         ),
     ],

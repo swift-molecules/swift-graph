@@ -1,0 +1,46 @@
+public import Array_Primitive
+public import Array
+public import Buffer_Linear_Primitive
+public import Buffer_Linear
+internal import Column
+import Index
+public import Ownership_Shared_Primitive
+public import Tagged_Collection
+public import Tagged
+public import Vector
+
+extension Graph {
+
+    @frozen
+    public struct Sequential<Tag: ~Copyable & ~Escapable, Payload> {
+
+        public let storage: Tagged<Tag, Array<Payload>.Shared>
+
+        @usableFromInline
+        init(storage: Tagged<Tag, Array<Payload>.Shared>) {
+            self.storage = storage
+        }
+
+        @inlinable
+        public var count: Node<Tag>.Count {
+            storage.count
+        }
+
+        @inlinable
+        public var isEmpty: Bool { storage.isEmpty }
+
+        @inlinable
+        public subscript(node: Node<Tag>) -> Payload {
+            storage[node]
+        }
+
+        @inlinable
+        public var nodes: Vector<Node<Tag>> {
+            Vector(count: count.retag(Vector<Node<Tag>>.self)) { vIndex in
+                Node<Tag>(_unchecked: vIndex.position)
+            }
+        }
+    }
+}
+
+extension Graph.Sequential: Sendable where Tag: ~Copyable & ~Escapable, Payload: Sendable {}
