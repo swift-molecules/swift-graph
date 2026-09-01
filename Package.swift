@@ -27,7 +27,7 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-molecules/swift-tagged.git",
+            url: "https://github.com/swift-atoms/swift-tagged.git",
             branch: "main"
         ),
         .package(
@@ -51,7 +51,7 @@ let package = Package(
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-index.git",
+            url: "https://github.com/swift-atoms/swift-index.git",
             branch: "main"
         ),
         .package(
@@ -91,7 +91,7 @@ let package = Package(
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-iterator.git",
+            url: "https://github.com/swift-atoms/swift-iterator.git",
             branch: "main"
         ),
         .package(
