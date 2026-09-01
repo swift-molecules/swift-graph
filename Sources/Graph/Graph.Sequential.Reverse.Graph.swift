@@ -2,7 +2,7 @@ public import Buffer_Linear_Bounded_Primitive
 public import Buffer_Linear_Primitive
 public import Buffer_Linear
 public import Column
-public import Fixed_Primitive
+public import Fixed
 public import Fixed
 public import Ownership_Shared_Primitive
 public import Tagged_Collection
