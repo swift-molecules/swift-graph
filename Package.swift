@@ -95,7 +95,7 @@ let package = Package(
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-vector.git",
+            url: "https://github.com/swift-atoms/swift-vector.git",
             branch: "main"
         ),
     ],
