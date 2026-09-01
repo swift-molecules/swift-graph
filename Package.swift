@@ -39,7 +39,7 @@ let package = Package(
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-set.git",
+            url: "https://github.com/swift-atoms/swift-set.git",
             branch: "main"
         ),
         .package(
@@ -47,7 +47,7 @@ let package = Package(
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-heap.git",
+            url: "https://github.com/swift-atoms/swift-heap.git",
             branch: "main"
         ),
         .package(
