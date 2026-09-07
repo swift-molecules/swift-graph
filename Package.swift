@@ -139,7 +139,7 @@ let package = Package(
                 .product(name: "Queue", package: "swift-queue"),
                 .product(name: "Queue Primitive", package: "swift-queue"),
                 .product(name: "Bit Vector", package: "swift-bit-vector"),
-                .product(name: "Iterator Chunk", package: "swift-iterator"),
+                .product(name: "Iterator", package: "swift-iterator"),
                 .product(name: "Vector", package: "swift-vector"),
             ]
         ),

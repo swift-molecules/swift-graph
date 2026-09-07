@@ -4,7 +4,7 @@ public import Bit_Vector
 public import Buffer_Linear_Primitive
 public import Buffer_Linear
 internal import Column
-internal import Iterator_Chunk
+internal import Iterator
 public import Ownership_Shared_Primitive
 public import Stack
 public import Tagged_Collection

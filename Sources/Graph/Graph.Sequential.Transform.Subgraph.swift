@@ -3,7 +3,6 @@ public import Buffer_Linear_Primitive
 public import Buffer_Linear
 public import Column
 public import Fixed
-public import Fixed
 public import Hash_Indexed_Primitive
 public import Ownership_Shared_Primitive
 public import Set_Ordered_Primitive

@@ -5,7 +5,6 @@ public import Buffer_Linear
 public import Buffer_Ring_Primitive
 public import Column
 public import Fixed
-public import Fixed
 public import Ownership_Shared_Primitive
 public import Queue_Primitive
 public import Queue

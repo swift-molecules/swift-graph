@@ -5,7 +5,7 @@ public import Buffer_Linear_Primitive
 public import Buffer_Linear
 public import Buffer_Ring_Primitive
 public import Column
-internal import Iterator_Chunk
+internal import Iterator
 public import Ownership_Shared_Primitive
 public import Queue_Primitive
 public import Queue
