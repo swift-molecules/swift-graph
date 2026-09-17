@@ -13,7 +13,7 @@ import Vector
 extension Graph.Sequential.Path {
 
     @usableFromInline
-    struct Entry: Comparison.`Protocol`, Sendable {
+    struct Entry: Swift.Comparable, Sendable {
         @usableFromInline let node: Graph.Node<Tag>
         @usableFromInline let distance: Int
 
