@@ -2,11 +2,15 @@ public import Bit_Vector
 public import Buffer_Linear_Bounded_Primitive
 public import Buffer_Linear_Primitive
 public import Buffer_Linear
-public import Column
+public import Memory
+public import Memory_Allocator
+public import Storage
+public import Buffer
+
 public import Fixed
 public import Heap_Primitive
 public import Ownership_Shared_Primitive
-public import Tagged_Collection
+public import Collection
 public import Tagged
 import Vector
 
@@ -53,11 +57,11 @@ extension Graph.Sequential.Path {
 
         var heap = Heap<Entry>()
         let visited = Bit.Vector(capacity: count.retag(Bit.self))
-        var distances = __Fixed<Column.Bounded<Int>>(
+        var distances = __Fixed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Int>>.Linear.Bounded>(
             repeating: Int.max,
             count: count.retag(Int.self)
         )
-        var predecessors = __Fixed<Column.Bounded<Graph.Node<Tag>?>>(
+        var predecessors = __Fixed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Graph.Node<Tag>?>>.Linear.Bounded>(
             repeating: nil,
             count: count.retag((Graph.Node<Tag>?).self)
         )
@@ -100,7 +104,7 @@ extension Graph.Sequential.Path {
     @usableFromInline
     func reconstructWeightedPath(
         to target: Graph.Node<Tag>,
-        predecessors: borrowing __Fixed<Column.Bounded<Graph.Node<Tag>?>>,
+        predecessors: borrowing __Fixed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Graph.Node<Tag>?>>.Linear.Bounded>,
         source: Graph.Node<Tag>
     ) -> [Graph.Node<Tag>] {
         var path = [Graph.Node<Tag>]()

@@ -1,4 +1,9 @@
-import Column
+import Memory
+import Memory_Allocator
+import Storage
+import Buffer
+import Buffer_Linear_Primitive
+
 import Graph
 import Hash_Indexed_Primitive
 import Set_Ordered_Primitive
@@ -8,8 +13,8 @@ private enum TestTag {}
 
 private func orderedSet(
     _ nodes: Graph.Node<TestTag>...
-) -> __SetOrdered<Hash.Indexed<Column.Heap<Graph.Node<TestTag>>>> {
-    var set = __SetOrdered<Hash.Indexed<Column.Heap<Graph.Node<TestTag>>>>()
+) -> __SetOrdered<Hash.Indexed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Graph.Node<TestTag>>>.Linear>> {
+    var set = __SetOrdered<Hash.Indexed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Graph.Node<TestTag>>>.Linear>>()
     for node in nodes {
         _ = set.insert(node)
     }

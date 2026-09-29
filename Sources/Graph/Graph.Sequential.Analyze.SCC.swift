@@ -2,11 +2,15 @@ public import Bit_Vector
 public import Buffer_Linear_Bounded_Primitive
 public import Buffer_Linear_Primitive
 public import Buffer_Linear
-public import Column
+public import Memory
+public import Memory_Allocator
+public import Storage
+public import Buffer
+
 public import Fixed
 public import Ownership_Shared_Primitive
 public import Stack
-public import Tagged_Collection
+public import Collection
 public import Tagged
 public import Vector
 
@@ -17,8 +21,8 @@ extension Graph.Sequential.Analyze {
         let count = graph.count
         guard count > .zero else { return [] }
 
-        var nodeIndex = __Fixed<Column.Bounded<Int>>(repeating: -1, count: count.retag(Int.self))
-        var lowLink = __Fixed<Column.Bounded<Int>>(repeating: 0, count: count.retag(Int.self))
+        var nodeIndex = __Fixed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Int>>.Linear.Bounded>(repeating: -1, count: count.retag(Int.self))
+        var lowLink = __Fixed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Int>>.Linear.Bounded>(repeating: 0, count: count.retag(Int.self))
         let onStack = Bit.Vector(capacity: count.retag(Bit.self))
 
         var index = 0

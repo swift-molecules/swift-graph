@@ -4,12 +4,16 @@ public import Bit_Vector
 public import Buffer_Linear_Primitive
 public import Buffer_Linear
 public import Buffer_Ring_Primitive
-public import Column
+public import Memory
+public import Memory_Allocator
+public import Storage
+public import Buffer
+
 internal import Iterator
 public import Ownership_Shared_Primitive
 public import Queue_Primitive
 public import Queue
-public import Tagged_Collection
+public import Collection
 public import Tagged
 import Vector
 
@@ -56,7 +60,7 @@ extension Graph.Traversal.First {
         let extract: Graph.Adjacency.Extract<Payload, Tag, Adjacent>
 
         @usableFromInline
-        var queue: __Queue<Column.Ring<Graph.Node<Tag>>>
+        var queue: __Queue<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Graph.Node<Tag>>>.Ring>
 
         @usableFromInline
         var visited: Bit.Vector

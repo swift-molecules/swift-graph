@@ -1,14 +1,18 @@
 public import Bit_Vector
 public import Buffer_Linear_Primitive
 public import Buffer_Linear
-public import Column
+public import Memory
+public import Memory_Allocator
+public import Storage
+public import Buffer
+
 public import Hash_Indexed_Primitive
 public import Ownership_Shared_Primitive
 public import Set_Ordered_Primitive
 public import Set_Ordered
 internal import Set
 public import Stack
-public import Tagged_Collection
+public import Collection
 public import Tagged
 import Vector
 
@@ -17,10 +21,10 @@ extension Graph.Sequential.Analyze {
     @inlinable
     public func reachable(
         from roots: some Swift.Sequence<Graph.Node<Tag>>
-    ) -> __SetOrdered<Hash.Indexed<Column.Heap<Graph.Node<Tag>>>> {
+    ) -> __SetOrdered<Hash.Indexed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Graph.Node<Tag>>>.Linear>> {
         let count = graph.count
 
-        var result = __SetOrdered<Hash.Indexed<Column.Heap<Graph.Node<Tag>>>>(
+        var result = __SetOrdered<Hash.Indexed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Graph.Node<Tag>>>.Linear>>(
             minimumCapacity: count.retag(Graph.Node<Tag>.self)
         )
         guard count > .zero else { return result }
@@ -56,7 +60,7 @@ extension Graph.Sequential.Analyze {
     @inlinable
     public func reachable(
         from root: Graph.Node<Tag>
-    ) -> __SetOrdered<Hash.Indexed<Column.Heap<Graph.Node<Tag>>>> {
+    ) -> __SetOrdered<Hash.Indexed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Graph.Node<Tag>>>.Linear>> {
         reachable(from: Swift.CollectionOfOne(root))
     }
 }

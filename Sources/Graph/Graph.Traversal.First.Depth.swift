@@ -3,11 +3,21 @@ public import Array
 public import Bit_Vector
 public import Buffer_Linear_Primitive
 public import Buffer_Linear
-internal import Column
+internal import Buffer
+internal import Buffer_Linear_Primitive
+internal import Buffer_Linear_Bounded_Primitive
+internal import Buffer_Ring_Primitive
+internal import Memory_Allocator_Pool
+internal import Memory_Pool
+internal import Memory_Allocator
+internal import Memory
+internal import Ownership_Shared_Primitive
+internal import Storage
+internal import Store
 internal import Iterator
 public import Ownership_Shared_Primitive
 public import Stack
-public import Tagged_Collection
+public import Collection
 public import Tagged
 import Vector
 

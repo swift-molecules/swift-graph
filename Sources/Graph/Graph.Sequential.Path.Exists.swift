@@ -2,11 +2,15 @@ public import Bit_Vector
 public import Buffer_Linear_Primitive
 public import Buffer_Linear
 public import Buffer_Ring_Primitive
-public import Column
+public import Memory
+public import Memory_Allocator
+public import Storage
+public import Buffer
+
 public import Ownership_Shared_Primitive
 public import Queue_Primitive
 public import Queue
-public import Tagged_Collection
+public import Collection
 public import Tagged
 import Vector
 
@@ -23,7 +27,7 @@ extension Graph.Sequential.Path {
         if source == target { return true }
 
         let visited = Bit.Vector(capacity: count.retag(Bit.self))
-        var queue = __Queue<Column.Ring<Graph.Node<Tag>>>()
+        var queue = __Queue<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Graph.Node<Tag>>>.Ring>()
 
         visited[source.retag(Bit.self)] = true
         queue.enqueue(source)

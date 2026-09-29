@@ -1,21 +1,25 @@
 public import Buffer_Linear_Bounded_Primitive
 public import Buffer_Linear_Primitive
 public import Buffer_Linear
-public import Column
+public import Memory
+public import Memory_Allocator
+public import Storage
+public import Buffer
+
 public import Fixed
 public import Hash_Indexed_Primitive
 public import Ownership_Shared_Primitive
 public import Set_Ordered_Primitive
 public import Set_Ordered
 internal import Set
-public import Tagged_Collection
+public import Collection
 public import Tagged
 
 extension Graph.Sequential.Transform {
 
     @inlinable
     public func subgraph<Adjacent: Swift.Sequence<Graph.Node<Tag>>>(
-        inducedBy nodes: consuming __SetOrdered<Hash.Indexed<Column.Heap<Graph.Node<Tag>>>>,
+        inducedBy nodes: consuming __SetOrdered<Hash.Indexed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Graph.Node<Tag>>>.Linear>>,
         using remap: Graph.Remappable.Remap<Payload, Tag, Adjacent>
     ) -> Graph.Sequential<Tag, Payload>? {
         let count = graph.count
@@ -29,7 +33,7 @@ extension Graph.Sequential.Transform {
             guard node < count else { return nil }
         }
 
-        var oldToNew = __Fixed<Column.Bounded<Int>>(repeating: -1, count: count.retag(Int.self))
+        var oldToNew = __Fixed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Int>>.Linear.Bounded>(repeating: -1, count: count.retag(Int.self))
         for (newIndex, node) in sortedNodes.enumerated() {
             oldToNew[node.retag(Int.self)] = newIndex
         }
@@ -61,7 +65,7 @@ extension Graph.Sequential.Transform where Payload == Graph.Adjacency.List<Tag> 
 
     @inlinable
     public func subgraph(
-        inducedBy nodes: consuming __SetOrdered<Hash.Indexed<Column.Heap<Graph.Node<Tag>>>>
+        inducedBy nodes: consuming __SetOrdered<Hash.Indexed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Graph.Node<Tag>>>.Linear>>
     ) -> Graph.Sequential<Tag, Payload>? {
         let count = graph.count
 
@@ -74,7 +78,7 @@ extension Graph.Sequential.Transform where Payload == Graph.Adjacency.List<Tag> 
             guard node < count else { return nil }
         }
 
-        var oldToNew = __Fixed<Column.Bounded<Int>>(repeating: -1, count: count.retag(Int.self))
+        var oldToNew = __Fixed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Int>>.Linear.Bounded>(repeating: -1, count: count.retag(Int.self))
         for (newIndex, node) in sortedNodes.enumerated() {
             oldToNew[node.retag(Int.self)] = newIndex
         }

@@ -3,10 +3,19 @@ internal import Array
 import Bit_Vector
 public import Buffer_Linear_Primitive
 import Buffer_Linear
-internal import Column
+internal import Buffer
+internal import Buffer_Linear_Primitive
+internal import Buffer_Linear_Bounded_Primitive
+internal import Buffer_Ring_Primitive
+internal import Memory_Allocator_Pool
+internal import Memory_Pool
+internal import Memory_Allocator
+internal import Memory
 internal import Ownership_Shared_Primitive
+internal import Storage
+internal import Store
 import Stack
-import Tagged_Collection
+import Collection
 public import Tagged
 import Vector
 

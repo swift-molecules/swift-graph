@@ -1,10 +1,14 @@
 public import Buffer_Linear_Bounded_Primitive
 public import Buffer_Linear_Primitive
 public import Buffer_Linear
-public import Column
+public import Memory
+public import Memory_Allocator
+public import Storage
+public import Buffer
+
 public import Fixed
 public import Ownership_Shared_Primitive
-public import Tagged_Collection
+public import Collection
 public import Tagged
 public import Vector
 
@@ -18,7 +22,7 @@ extension Graph.Sequential.Reverse {
             return builder.build()
         }
 
-        var reversedAdjacent = __Fixed<Column.Bounded<[Graph.Node<Tag>]>>(
+        var reversedAdjacent = __Fixed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<[Graph.Node<Tag>]>>.Linear.Bounded>(
             repeating: [],
             count: count.retag([Graph.Node<Tag>].self)
         )

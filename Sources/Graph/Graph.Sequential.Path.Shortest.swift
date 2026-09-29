@@ -3,12 +3,16 @@ public import Buffer_Linear_Bounded_Primitive
 public import Buffer_Linear_Primitive
 public import Buffer_Linear
 public import Buffer_Ring_Primitive
-public import Column
+public import Memory
+public import Memory_Allocator
+public import Storage
+public import Buffer
+
 public import Fixed
 public import Ownership_Shared_Primitive
 public import Queue_Primitive
 public import Queue
-public import Tagged_Collection
+public import Collection
 public import Tagged
 import Vector
 
@@ -28,11 +32,11 @@ extension Graph.Sequential.Path {
         if source == target { return [source] }
 
         let visited = Bit.Vector(capacity: count.retag(Bit.self))
-        var predecessors = __Fixed<Column.Bounded<Graph.Node<Tag>?>>(
+        var predecessors = __Fixed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Graph.Node<Tag>?>>.Linear.Bounded>(
             repeating: nil,
             count: count.retag((Graph.Node<Tag>?).self)
         )
-        var queue = __Queue<Column.Ring<Graph.Node<Tag>>>()
+        var queue = __Queue<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Graph.Node<Tag>>>.Ring>()
 
         visited[source.retag(Bit.self)] = true
         queue.enqueue(source)
@@ -64,7 +68,7 @@ extension Graph.Sequential.Path {
     @usableFromInline
     func reconstructPath(
         to target: Graph.Node<Tag>,
-        predecessors: borrowing __Fixed<Column.Bounded<Graph.Node<Tag>?>>,
+        predecessors: borrowing __Fixed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Graph.Node<Tag>?>>.Linear.Bounded>,
         source: Graph.Node<Tag>
     ) -> [Graph.Node<Tag>] {
         var path = [Graph.Node<Tag>]()

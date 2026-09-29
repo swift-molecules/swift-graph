@@ -2,11 +2,15 @@ public import Bit_Vector
 public import Buffer_Linear_Bounded_Primitive
 public import Buffer_Linear_Primitive
 public import Buffer_Linear
-public import Column
+public import Memory
+public import Memory_Allocator
+public import Storage
+public import Buffer
+
 public import Fixed
 public import Ownership_Shared_Primitive
 public import Stack
-public import Tagged_Collection
+public import Collection
 public import Tagged
 public import Vector
 
@@ -20,7 +24,7 @@ extension Graph.Sequential.Analyze {
             return builder.build()
         }
 
-        var closureAdjacent = __Fixed<Column.Bounded<[Graph.Node<Tag>]>>(
+        var closureAdjacent = __Fixed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<[Graph.Node<Tag>]>>.Linear.Bounded>(
             repeating: [],
             count: count.retag([Graph.Node<Tag>].self)
         )
