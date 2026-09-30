@@ -109,6 +109,7 @@ let package = Package(
                 .product(name: "Heap Primitive", package: "swift-heap"),
                 .product(name: "Index", package: "swift-index"),
                 .product(name: "Array", package: "swift-array"),
+                .product(name: "Hash Table Primitive", package: "swift-hash-table"),
                 .product(name: "Array Primitive", package: "swift-array"),
                 .product(name: "Fixed", package: "swift-fixed"),
                 .product(name: "Hash Indexed Primitive", package: "swift-hash-table"),

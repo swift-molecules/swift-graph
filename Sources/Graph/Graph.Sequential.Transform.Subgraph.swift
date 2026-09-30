@@ -1,3 +1,5 @@
+public import Array
+public import Hash_Table_Primitive
 public import Buffer_Linear_Bounded_Primitive
 public import Buffer_Linear_Primitive
 public import Buffer_Linear
