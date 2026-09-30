@@ -1,3 +1,4 @@
+import Tagged
 import Hash_Table_Primitive
 import Memory
 import Memory_Allocator

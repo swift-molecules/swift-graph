@@ -163,6 +163,8 @@ let package = Package(
             name: "Graph Tests",
             dependencies: [
                 "Graph",
+                .product(name: "Tagged", package: "swift-tagged"),
+                .product(name: "Hash Table Primitive", package: "swift-hash-table"),
                 .product(name: "Hash Indexed Primitive", package: "swift-hash-table"),
                 .product(name: "Set Ordered Primitive", package: "swift-set-ordered"),
                 .product(name: "Buffer", package: "swift-buffer"),
