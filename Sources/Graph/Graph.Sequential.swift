@@ -1,3 +1,4 @@
+public import Ordinal
 public import Array_Primitive
 public import Array
 public import Buffer_Linear_Primitive
@@ -45,10 +46,8 @@ extension Graph {
         }
 
         @inlinable
-        public var nodes: Vector<Node<Tag>> {
-            Vector(count: count.retag(Vector<Node<Tag>>.self)) { vIndex in
-                Node<Tag>(_unchecked: vIndex.position)
-            }
+        public var nodes: some Swift.Collection<Node<Tag>> {
+            (0..<UInt(Int(bitPattern: count))).lazy.map { Node<Tag>(_unchecked: Ordinal($0)) }
         }
     }
 }
