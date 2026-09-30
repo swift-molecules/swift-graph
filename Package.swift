@@ -102,6 +102,7 @@ let package = Package(
             name: "Graph",
             dependencies: [
                 .product(name: "Tagged", package: "swift-tagged"),
+                .product(name: "Ordinal", package: "swift-ordinal"),
                 .product(name: "Stack", package: "swift-stack"),
                 .product(name: "Set", package: "swift-set"),
                 .product(name: "Set Ordered", package: "swift-set-ordered"),
@@ -165,6 +166,7 @@ let package = Package(
             dependencies: [
                 "Graph",
                 .product(name: "Tagged", package: "swift-tagged"),
+                .product(name: "Ordinal", package: "swift-ordinal"),
                 .product(name: "Hash Table Primitive", package: "swift-hash-table"),
                 .product(name: "Hash Indexed Primitive", package: "swift-hash-table"),
                 .product(name: "Set Ordered Primitive", package: "swift-set-ordered"),

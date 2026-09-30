@@ -1,3 +1,4 @@
+import Ordinal
 import Set_Ordered
 import Tagged
 import Hash_Table_Primitive
