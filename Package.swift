@@ -26,6 +26,7 @@ let package = Package(
         ),
     ],
     dependencies: [
+        .package(url: "https://github.com/swift-atoms/swift-cardinal.git", branch: "main"),
         .package(url: "https://github.com/swift-atoms/swift-ordinal.git", branch: "main"),
         .package(
             url: "https://github.com/swift-atoms/swift-tagged.git",
@@ -104,6 +105,7 @@ let package = Package(
             dependencies: [
                 .product(name: "Tagged", package: "swift-tagged"),
                 .product(name: "Ordinal", package: "swift-ordinal"),
+                .product(name: "Cardinal", package: "swift-cardinal"),
                 .product(name: "Stack", package: "swift-stack"),
                 .product(name: "Set", package: "swift-set"),
                 .product(name: "Set Ordered", package: "swift-set-ordered"),
