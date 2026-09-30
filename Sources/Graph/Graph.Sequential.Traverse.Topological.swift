@@ -1,3 +1,4 @@
+public import Array
 public import Buffer_Linear_Primitive
 public import Vector
 

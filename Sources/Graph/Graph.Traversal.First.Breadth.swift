@@ -1,3 +1,4 @@
+public import Memory_Allocator_Protocol
 public import Array_Primitive
 public import Array
 public import Bit_Vector

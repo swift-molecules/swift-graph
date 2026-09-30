@@ -1,3 +1,5 @@
+public import Array
+public import Memory_Allocator_Protocol
 public import Bit_Vector
 public import Buffer_Linear_Bounded_Primitive
 public import Buffer_Linear_Primitive

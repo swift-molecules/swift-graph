@@ -1,3 +1,4 @@
+public import Array
 extension Graph.Default {
 
     @frozen

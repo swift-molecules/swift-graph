@@ -1,3 +1,4 @@
+public import Array
 public import Index
 
 extension Graph {
