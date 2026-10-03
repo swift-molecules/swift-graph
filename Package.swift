@@ -110,7 +110,6 @@ let package = Package(
                 .product(name: "Set", package: "swift-set"),
                 .product(name: "Set Ordered", package: "swift-set-ordered"),
                 .product(name: "Set Ordered Primitive", package: "swift-set-ordered"),
-                .product(name: "Set Ordered", package: "swift-set-ordered"),
                 .product(name: "Heap Primitive", package: "swift-heap"),
                 .product(name: "Index", package: "swift-index"),
                 .product(name: "Array", package: "swift-array"),
