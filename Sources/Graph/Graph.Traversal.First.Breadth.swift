@@ -25,7 +25,7 @@ extension Graph.Traversal.First {
     public struct Breadth<
         Tag: ~Copyable & ~Escapable,
         Payload,
-        Adjacent: Swift.Sequence<Graph.Node<Tag>>
+        Adjacent: Swift::Sequence<Graph.Node<Tag>>
     >: ~Copyable, Iterator.Chunk.`Protocol` {
 
         public typealias Element = (node: Graph.Node<Tag>, payload: Payload)
@@ -72,7 +72,7 @@ extension Graph.Traversal.First {
         @usableFromInline
         init(
             storage: Tagged<Tag, Array<Payload>.Shared>,
-            roots: some Swift.Sequence<Graph.Node<Tag>>,
+            roots: some Swift::Sequence<Graph.Node<Tag>>,
             extract: Graph.Adjacency.Extract<Payload, Tag, Adjacent>
         ) {
             self.storage = storage
@@ -94,7 +94,7 @@ extension Graph.Traversal.First {
         @inlinable
         public mutating func next(
             maximumCount: some Carrier.`Protocol`<Cardinal>
-        ) -> Swift.Span<Element> {
+        ) -> Swift::Span<Element> {
 
             let box = _elementBox
             let pointer = unsafe box.pointer

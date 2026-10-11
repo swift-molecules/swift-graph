@@ -19,7 +19,7 @@ import Vector
 extension Graph.Sequential.Path {
 
     @usableFromInline
-    struct Entry: Swift.Comparable, Sendable {
+    struct Entry: Swift::Comparable, Sendable {
         @usableFromInline let node: Graph.Node<Tag>
         @usableFromInline let distance: Int
 
@@ -28,16 +28,18 @@ extension Graph.Sequential.Path {
             self.node = node
             self.distance = distance
         }
+    }
+}
 
-        @usableFromInline
-        static func < (lhs: Self, rhs: Self) -> Bool {
-            lhs.distance < rhs.distance
-        }
+extension Graph.Sequential.Path.Entry {
+    @usableFromInline
+    static func < (lhs: Self, rhs: Self) -> Bool {
+        lhs.distance < rhs.distance
+    }
 
-        @usableFromInline
-        static func == (lhs: Self, rhs: Self) -> Bool {
-            lhs.distance == rhs.distance && lhs.node == rhs.node
-        }
+    @usableFromInline
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.distance == rhs.distance && lhs.node == rhs.node
     }
 }
 

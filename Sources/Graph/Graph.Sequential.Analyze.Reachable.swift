@@ -23,7 +23,7 @@ extension Graph.Sequential.Analyze {
 
     @inlinable
     public func reachable(
-        from roots: some Swift.Sequence<Graph.Node<Tag>>
+        from roots: some Swift::Sequence<Graph.Node<Tag>>
     ) -> __SetOrdered<Hash.Indexed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Graph.Node<Tag>>>.Linear>> {
         let count = graph.count
 
@@ -64,6 +64,6 @@ extension Graph.Sequential.Analyze {
     public func reachable(
         from root: Graph.Node<Tag>
     ) -> __SetOrdered<Hash.Indexed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Graph.Node<Tag>>>.Linear>> {
-        reachable(from: Swift.CollectionOfOne(root))
+        reachable(from: Swift::CollectionOfOne(root))
     }
 }

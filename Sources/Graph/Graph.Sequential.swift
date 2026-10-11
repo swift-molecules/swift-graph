@@ -5,21 +5,19 @@ public import Array
 public import Buffer_Linear_Primitive
 public import Buffer_Linear
 internal import Buffer
-internal import Buffer_Linear_Primitive
 internal import Buffer_Linear_Bounded_Primitive
 internal import Buffer_Ring_Primitive
 internal import Memory_Allocator_Pool
 internal import Memory_Pool
 internal import Memory_Allocator
 internal import Memory
-internal import Ownership_Shared_Primitive
 internal import Storage
 internal import Store
 import Index
 public import Ownership_Shared_Primitive
 public import Collection
 public import Tagged
-public import Vector
+internal import Vector
 
 extension Graph {
 
@@ -47,7 +45,7 @@ extension Graph {
         }
 
         @inlinable
-        public var nodes: some Swift.Collection<Node<Tag>> {
+        public var nodes: some Swift::Collection<Node<Tag>> {
             (0..<UInt(Int(bitPattern: count))).lazy.map { Node<Tag>(_unchecked: Ordinal($0)) }
         }
     }

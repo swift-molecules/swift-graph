@@ -14,12 +14,12 @@ public import Ownership_Shared_Primitive
 public import Stack
 public import Collection
 public import Tagged
-public import Vector
+internal import Vector
 
 extension Graph.Sequential.Analyze {
 
     @inlinable
-    public func scc(from roots: some Swift.Sequence<Graph.Node<Tag>>) -> [[Graph.Node<Tag>]] {
+    public func scc(from roots: some Swift::Sequence<Graph.Node<Tag>>) -> [[Graph.Node<Tag>]] {
         let count = graph.count
         guard count > .zero else { return [] }
 
@@ -39,7 +39,7 @@ extension Graph.Sequential.Analyze {
             if nodeIndex[root.retag(Int.self)] != -1 { continue }
 
             let rootPayload = graph.storage[root]
-            let rootAdjacents = Swift.Array(extract.adjacent(rootPayload))
+            let rootAdjacents = Swift::Array(extract.adjacent(rootPayload))
             callStack.append((root, rootAdjacents, 0, true))
 
             while !callStack.isEmpty {
@@ -68,7 +68,7 @@ extension Graph.Sequential.Analyze {
                     if nodeIndex[adjacent.retag(Int.self)] == -1 {
 
                         let adjPayload = graph.storage[adjacent]
-                        let adjAdjacents = Swift.Array(extract.adjacent(adjPayload))
+                        let adjAdjacents = Swift::Array(extract.adjacent(adjPayload))
                         callStack.append((adjacent, adjAdjacents, 0, true))
                         pushedChild = true
                         break
@@ -113,7 +113,7 @@ extension Graph.Sequential.Analyze {
 
     @inlinable
     public func scc(from root: Graph.Node<Tag>) -> [[Graph.Node<Tag>]] {
-        scc(from: Swift.CollectionOfOne(root))
+        scc(from: Swift::CollectionOfOne(root))
     }
 
     @inlinable

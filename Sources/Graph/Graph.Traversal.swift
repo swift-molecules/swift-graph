@@ -1,4 +1,4 @@
-public import Array
+internal import Array
 extension Graph {
 
     public enum Traversal {}

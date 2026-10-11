@@ -5,7 +5,7 @@ extension Graph.Adjacency {
     public struct Extract<
         Payload,
         Tag: ~Copyable & ~Escapable,
-        Adjacent: Swift.Sequence<Graph.Node<Tag>>
+        Adjacent: Swift::Sequence<Graph.Node<Tag>>
     > {
         @usableFromInline
         let _adjacent: (Payload) -> Adjacent

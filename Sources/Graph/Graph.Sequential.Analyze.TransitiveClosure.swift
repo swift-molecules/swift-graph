@@ -14,7 +14,7 @@ public import Ownership_Shared_Primitive
 public import Stack
 public import Collection
 public import Tagged
-public import Vector
+internal import Vector
 
 extension Graph.Sequential.Analyze {
 

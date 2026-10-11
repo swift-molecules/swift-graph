@@ -1,2 +1,2 @@
-public import Array
+internal import Array
 public enum Graph {}

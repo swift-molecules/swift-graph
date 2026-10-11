@@ -1,11 +1,11 @@
 public import Array
-public import Buffer_Linear_Primitive
+internal import Buffer_Linear_Primitive
 
 extension Graph.Sequential.Traverse.First {
 
     @inlinable
     public func breadth(
-        from roots: some Swift.Sequence<Graph.Node<Tag>>
+        from roots: some Swift::Sequence<Graph.Node<Tag>>
     ) -> Graph.Traversal.First.Breadth<Tag, Payload, Adjacent> {
         Graph.Traversal.First.Breadth(storage: graph.storage, roots: roots, extract: extract)
     }
@@ -14,6 +14,6 @@ extension Graph.Sequential.Traverse.First {
     public func breadth(
         from root: Graph.Node<Tag>
     ) -> Graph.Traversal.First.Breadth<Tag, Payload, Adjacent> {
-        breadth(from: Swift.CollectionOfOne(root))
+        breadth(from: Swift::CollectionOfOne(root))
     }
 }

@@ -1,1 +1,1 @@
-public import Graph
+internal import Graph

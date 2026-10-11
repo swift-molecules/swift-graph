@@ -1,5 +1,5 @@
 public import Array
-public import Index
+internal import Index
 
 extension Graph {
 

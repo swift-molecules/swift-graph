@@ -21,7 +21,7 @@ public import Tagged
 extension Graph.Sequential.Transform {
 
     @inlinable
-    public func subgraph<Adjacent: Swift.Sequence<Graph.Node<Tag>>>(
+    public func subgraph<Adjacent: Swift::Sequence<Graph.Node<Tag>>>(
         inducedBy nodes: consuming __SetOrdered<Hash.Indexed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Graph.Node<Tag>>>.Linear>>,
         using remap: Graph.Remappable.Remap<Payload, Tag, Adjacent>
     ) -> Graph.Sequential<Tag, Payload>? {

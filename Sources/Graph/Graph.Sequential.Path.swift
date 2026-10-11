@@ -1,17 +1,17 @@
-public import Array
+internal import Array
 public import Tagged
 
 extension Graph.Sequential {
 
     @inlinable
-    public func path<Adjacent: Swift.Sequence<Graph.Node<Tag>>>(
+    public func path<Adjacent: Swift::Sequence<Graph.Node<Tag>>>(
         using extract: Graph.Adjacency.Extract<Payload, Tag, Adjacent>
     ) -> Path<Adjacent> {
         Path(graph: self, extract: extract)
     }
 
     @frozen
-    public struct Path<Adjacent: Swift.Sequence<Graph.Node<Tag>>> {
+    public struct Path<Adjacent: Swift::Sequence<Graph.Node<Tag>>> {
 
         public let graph: Graph.Sequential<Tag, Payload>
 

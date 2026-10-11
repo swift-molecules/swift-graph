@@ -1,5 +1,5 @@
-public import Array
-public import Vector
+internal import Array
+internal import Vector
 
 extension Graph.Sequential.Transform {
 

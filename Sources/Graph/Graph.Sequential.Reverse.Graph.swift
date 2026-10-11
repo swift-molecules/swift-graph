@@ -12,7 +12,7 @@ public import Fixed
 public import Ownership_Shared_Primitive
 public import Collection
 public import Tagged
-public import Vector
+internal import Vector
 
 extension Graph.Sequential.Reverse {
 

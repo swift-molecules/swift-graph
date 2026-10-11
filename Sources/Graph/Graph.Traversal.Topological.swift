@@ -5,7 +5,6 @@ import Bit_Vector
 public import Buffer_Linear_Primitive
 import Buffer_Linear
 internal import Buffer
-internal import Buffer_Linear_Primitive
 internal import Buffer_Linear_Bounded_Primitive
 internal import Buffer_Ring_Primitive
 internal import Memory_Allocator_Pool
@@ -26,8 +25,8 @@ extension Graph.Traversal {
     public struct Topological<
         Tag: ~Copyable & ~Escapable,
         Payload,
-        Adjacent: Swift.Sequence<Graph.Node<Tag>>
-    >: Swift.Sequence {
+        Adjacent: Swift::Sequence<Graph.Node<Tag>>
+    >: Swift::Sequence {
 
         public typealias Element = (node: Graph.Node<Tag>, payload: Payload)
 
@@ -37,7 +36,7 @@ extension Graph.Traversal {
         @usableFromInline
         init(
             storage: Tagged<Tag, Array<Payload>.Shared>,
-            roots: some Swift.Sequence<Graph.Node<Tag>>,
+            roots: some Swift::Sequence<Graph.Node<Tag>>,
             extract: Graph.Adjacency.Extract<Payload, Tag, Adjacent>
         ) {
             self.elements = Self.computeOrder(storage: storage, roots: roots, extract: extract)
@@ -46,7 +45,7 @@ extension Graph.Traversal {
         @usableFromInline
         static func computeOrder(
             storage: Tagged<Tag, Array<Payload>.Shared>,
-            roots: some Swift.Sequence<Graph.Node<Tag>>,
+            roots: some Swift::Sequence<Graph.Node<Tag>>,
             extract: Graph.Adjacency.Extract<Payload, Tag, Adjacent>
         ) -> [Element]? {
             let count = storage.count

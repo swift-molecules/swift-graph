@@ -1,4 +1,4 @@
-public import Array
+internal import Array
 extension Graph.Default {
 
     @frozen
@@ -10,8 +10,10 @@ extension Graph.Default {
         public init(_ value: Payload) {
             self._default = value
         }
-
-        @inlinable
-        public var value: Payload { _default }
     }
+}
+
+extension Graph.Default.Value {
+    @inlinable
+    public var value: Payload { _default }
 }

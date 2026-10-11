@@ -3,14 +3,12 @@ public import Array_Primitive
 public import Array
 public import Buffer_Linear_Primitive
 internal import Buffer
-internal import Buffer_Linear_Primitive
 internal import Buffer_Linear_Bounded_Primitive
 internal import Buffer_Ring_Primitive
 internal import Memory_Allocator_Pool
 internal import Memory_Pool
 internal import Memory_Allocator
 internal import Memory
-internal import Ownership_Shared_Primitive
 internal import Storage
 internal import Store
 import Index
@@ -36,29 +34,31 @@ extension Graph.Sequential {
 
             self.storage = Array<Payload>.Shared(initialCapacity: capacity.retag(Payload.self))
         }
+    }
+}
 
-        @inlinable
-        public var count: Graph.Node<Tag>.Count {
-            storage.count.retag(Tag.self)
-        }
+extension Graph.Sequential.Builder {
+    @inlinable
+    public var count: Graph.Node<Tag>.Count {
+        storage.count.retag(Tag.self)
+    }
 
-        @inlinable
-        public mutating func allocate(_ payload: Payload) -> Graph.Node<Tag> {
-            let id = count.map(Ordinal.init)
-            storage.append(payload)
-            return id
-        }
+    @inlinable
+    public mutating func allocate(_ payload: Payload) -> Graph.Node<Tag> {
+        let id = count.map(Ordinal.init)
+        storage.append(payload)
+        return id
+    }
 
-        @inlinable
-        public subscript(node: Graph.Node<Tag>) -> Payload {
-            get { storage[node.retag(Payload.self)] }
-            set { storage[node.retag(Payload.self)] = newValue }
-        }
+    @inlinable
+    public subscript(node: Graph.Node<Tag>) -> Payload {
+        get { storage[node.retag(Payload.self)] }
+        set { storage[node.retag(Payload.self)] = newValue }
+    }
 
-        @inlinable
-        public consuming func build() -> Graph.Sequential<Tag, Payload> {
-            Graph.Sequential(storage: Tagged<Tag, Array<Payload>.Shared>(storage))
-        }
+    @inlinable
+    public consuming func build() -> Graph.Sequential<Tag, Payload> {
+        Graph.Sequential(storage: Tagged<Tag, Array<Payload>.Shared>(storage))
     }
 }
 

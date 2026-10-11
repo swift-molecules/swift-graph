@@ -17,13 +17,13 @@ internal import Set
 public import Stack
 public import Collection
 public import Tagged
-public import Vector
+internal import Vector
 
 extension Graph.Sequential.Analyze {
 
     @inlinable
     public func dead(
-        from roots: some Swift.Sequence<Graph.Node<Tag>>
+        from roots: some Swift::Sequence<Graph.Node<Tag>>
     ) -> __SetOrdered<Hash.Indexed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Graph.Node<Tag>>>.Linear>> {
         let count = graph.count
         var result = __SetOrdered<Hash.Indexed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Graph.Node<Tag>>>.Linear>>()

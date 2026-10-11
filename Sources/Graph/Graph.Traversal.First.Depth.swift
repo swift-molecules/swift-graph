@@ -5,14 +5,12 @@ public import Bit_Vector
 public import Buffer_Linear_Primitive
 public import Buffer_Linear
 internal import Buffer
-internal import Buffer_Linear_Primitive
 internal import Buffer_Linear_Bounded_Primitive
 internal import Buffer_Ring_Primitive
 internal import Memory_Allocator_Pool
 internal import Memory_Pool
 internal import Memory_Allocator
 internal import Memory
-internal import Ownership_Shared_Primitive
 internal import Storage
 internal import Store
 internal import Iterator
@@ -29,7 +27,7 @@ extension Graph.Traversal.First {
     public struct Depth<
         Tag: ~Copyable & ~Escapable,
         Payload,
-        Adjacent: Swift.Sequence<Graph.Node<Tag>>
+        Adjacent: Swift::Sequence<Graph.Node<Tag>>
     >: ~Copyable, Iterator.Chunk.`Protocol` {
 
         public typealias Element = (node: Graph.Node<Tag>, payload: Payload)
@@ -76,7 +74,7 @@ extension Graph.Traversal.First {
         @usableFromInline
         init(
             storage: Tagged<Tag, Array<Payload>.Shared>,
-            roots: some Swift.Sequence<Graph.Node<Tag>>,
+            roots: some Swift::Sequence<Graph.Node<Tag>>,
             extract: Graph.Adjacency.Extract<Payload, Tag, Adjacent>
         ) {
             self.storage = storage
@@ -94,7 +92,7 @@ extension Graph.Traversal.First {
         @inlinable
         public mutating func next(
             maximumCount: some Carrier.`Protocol`<Cardinal>
-        ) -> Swift.Span<Element> {
+        ) -> Swift::Span<Element> {
 
             let box = _elementBox
             let pointer = unsafe box.pointer
