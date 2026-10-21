@@ -1,21 +1,21 @@
-public import Memory_Allocator_Protocol
-public import Array_Primitive
 internal import Array
+public import Array_Primitive
 import Bit_Vector
-public import Buffer_Linear_Primitive
-import Buffer_Linear
 internal import Buffer
+import Buffer_Linear
 internal import Buffer_Linear_Bounded_Primitive
+public import Buffer_Linear_Primitive
 internal import Buffer_Ring_Primitive
-internal import Memory_Allocator_Pool
-internal import Memory_Pool
-internal import Memory_Allocator
+import Collection
 internal import Memory
+internal import Memory_Allocator
+internal import Memory_Allocator_Pool
+public import Memory_Allocator_Protocol
+internal import Memory_Pool
 internal import Ownership_Shared_Primitive
+import Stack
 internal import Storage
 internal import Store
-import Stack
-import Collection
 public import Tagged
 import Vector
 

@@ -1,7 +1,7 @@
 import Cardinal
+import Graph
 import Set_Ordered
 import Tagged
-import Graph
 import Testing
 
 private enum TestTag {}

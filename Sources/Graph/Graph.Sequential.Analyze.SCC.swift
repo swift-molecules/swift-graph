@@ -1,18 +1,17 @@
 public import Array
-public import Memory_Allocator_Protocol
 public import Bit_Vector
+public import Buffer
+public import Buffer_Linear
 public import Buffer_Linear_Bounded_Primitive
 public import Buffer_Linear_Primitive
-public import Buffer_Linear
+public import Collection
+public import Fixed
 public import Memory
 public import Memory_Allocator
-public import Storage
-public import Buffer
-
-public import Fixed
+public import Memory_Allocator_Protocol
 public import Ownership_Shared_Primitive
 public import Stack
-public import Collection
+public import Storage
 public import Tagged
 internal import Vector
 
@@ -31,8 +30,7 @@ extension Graph.Sequential.Analyze {
         var sccStack = Stack<Graph.Node<Tag>>()
         var components = [[Graph.Node<Tag>]]()
 
-        var callStack:
-            [(node: Graph.Node<Tag>, adjacents: [Graph.Node<Tag>], adjIndex: Int, phase: Bool)] = []
+        var callStack: [(node: Graph.Node<Tag>, adjacents: [Graph.Node<Tag>], adjIndex: Int, phase: Bool)] = []
 
         for root in roots {
             guard root < count else { continue }

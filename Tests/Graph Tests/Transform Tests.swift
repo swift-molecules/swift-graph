@@ -1,16 +1,15 @@
-import Ordinal
-import Set_Ordered
-import Tagged
+import Buffer
+import Buffer_Linear_Primitive
+import Graph
+import Hash_Indexed_Primitive
 import Hash_Table_Primitive
 import Memory
 import Memory_Allocator
-import Storage
-import Buffer
-import Buffer_Linear_Primitive
-
-import Graph
-import Hash_Indexed_Primitive
+import Ordinal
+import Set_Ordered
 import Set_Ordered_Primitive
+import Storage
+import Tagged
 import Testing
 
 private enum TestTag {}

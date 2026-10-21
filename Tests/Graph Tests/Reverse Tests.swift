@@ -1,7 +1,7 @@
+import Graph
 import Ordinal
 import Set_Ordered
 import Tagged
-import Graph
 import Testing
 
 private enum TestTag {}

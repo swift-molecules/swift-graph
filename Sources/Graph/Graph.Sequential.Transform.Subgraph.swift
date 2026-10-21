@@ -1,21 +1,20 @@
-public import Memory_Allocator_Protocol
 public import Array
-public import Hash_Table_Primitive
+public import Buffer
+public import Buffer_Linear
 public import Buffer_Linear_Bounded_Primitive
 public import Buffer_Linear_Primitive
-public import Buffer_Linear
-public import Memory
-public import Memory_Allocator
-public import Storage
-public import Buffer
-
+public import Collection
 public import Fixed
 public import Hash_Indexed_Primitive
+public import Hash_Table_Primitive
+public import Memory
+public import Memory_Allocator
+public import Memory_Allocator_Protocol
 public import Ownership_Shared_Primitive
-public import Set_Ordered_Primitive
-public import Set_Ordered
 internal import Set
-public import Collection
+public import Set_Ordered
+public import Set_Ordered_Primitive
+public import Storage
 public import Tagged
 
 extension Graph.Sequential.Transform {

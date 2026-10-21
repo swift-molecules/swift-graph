@@ -1,21 +1,20 @@
-public import Memory_Allocator_Protocol
 public import Array
-public import Hash_Table_Primitive
 public import Bit_Vector
-public import Buffer_Linear_Primitive
+public import Buffer
 public import Buffer_Linear
+public import Buffer_Linear_Primitive
+public import Collection
+public import Hash_Indexed_Primitive
+public import Hash_Table_Primitive
 public import Memory
 public import Memory_Allocator
-public import Storage
-public import Buffer
-
-public import Hash_Indexed_Primitive
+public import Memory_Allocator_Protocol
 public import Ownership_Shared_Primitive
-public import Set_Ordered_Primitive
-public import Set_Ordered
 internal import Set
+public import Set_Ordered
+public import Set_Ordered_Primitive
 public import Stack
-public import Collection
+public import Storage
 public import Tagged
 import Vector
 

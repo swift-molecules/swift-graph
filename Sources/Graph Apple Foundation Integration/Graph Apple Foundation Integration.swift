@@ -1,3 +1,3 @@
+internal import Foundation
 internal import Graph
 internal import Graph_Standard_Library_Integration
-internal import Foundation

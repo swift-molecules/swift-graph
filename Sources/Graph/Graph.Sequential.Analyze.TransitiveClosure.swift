@@ -1,18 +1,17 @@
 public import Array
-public import Memory_Allocator_Protocol
 public import Bit_Vector
+public import Buffer
+public import Buffer_Linear
 public import Buffer_Linear_Bounded_Primitive
 public import Buffer_Linear_Primitive
-public import Buffer_Linear
+public import Collection
+public import Fixed
 public import Memory
 public import Memory_Allocator
-public import Storage
-public import Buffer
-
-public import Fixed
+public import Memory_Allocator_Protocol
 public import Ownership_Shared_Primitive
 public import Stack
-public import Collection
+public import Storage
 public import Tagged
 internal import Vector
 

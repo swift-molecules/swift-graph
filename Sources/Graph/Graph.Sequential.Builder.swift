@@ -1,19 +1,19 @@
-public import Memory_Allocator_Protocol
-public import Array_Primitive
 public import Array
-public import Buffer_Linear_Primitive
+public import Array_Primitive
 internal import Buffer
 internal import Buffer_Linear_Bounded_Primitive
+public import Buffer_Linear_Primitive
 internal import Buffer_Ring_Primitive
-internal import Memory_Allocator_Pool
-internal import Memory_Pool
-internal import Memory_Allocator
+import Collection
+import Index
 internal import Memory
+internal import Memory_Allocator
+internal import Memory_Allocator_Pool
+public import Memory_Allocator_Protocol
+internal import Memory_Pool
+public import Ownership_Shared_Primitive
 internal import Storage
 internal import Store
-import Index
-public import Ownership_Shared_Primitive
-import Collection
 public import Tagged
 
 extension Graph.Sequential {
