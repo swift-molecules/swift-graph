@@ -8,7 +8,7 @@ public import Hash_Indexed_Primitive
 public import Hash_Table_Primitive
 public import Memory
 public import Memory_Allocator
-public import Memory_Allocator_Protocol
+internal import Memory_Allocator_Protocol
 public import Ownership_Shared_Primitive
 internal import Set
 public import Set_Ordered

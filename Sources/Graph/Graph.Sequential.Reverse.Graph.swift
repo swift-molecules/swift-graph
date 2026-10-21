@@ -7,7 +7,7 @@ public import Collection
 public import Fixed
 public import Memory
 public import Memory_Allocator
-public import Memory_Allocator_Protocol
+internal import Memory_Allocator_Protocol
 public import Ownership_Shared_Primitive
 public import Storage
 public import Tagged

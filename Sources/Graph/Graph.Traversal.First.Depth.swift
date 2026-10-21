@@ -11,7 +11,7 @@ internal import Iterator
 internal import Memory
 internal import Memory_Allocator
 internal import Memory_Allocator_Pool
-public import Memory_Allocator_Protocol
+internal import Memory_Allocator_Protocol
 internal import Memory_Pool
 public import Ownership_Shared_Primitive
 public import Stack
