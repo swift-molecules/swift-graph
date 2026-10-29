@@ -1,58 +1,60 @@
-public import Array
-public import Bit_Vector
-public import Buffer
-public import Buffer_Linear
-public import Buffer_Linear_Primitive
-public import Collection
-public import Hash_Indexed_Primitive
-public import Hash_Table_Primitive
-public import Memory
-public import Memory_Allocator
-internal import Memory_Allocator_Protocol
-public import Ownership_Shared_Primitive
-internal import Set
-public import Set_Ordered
-public import Set_Ordered_Primitive
-public import Stack
-public import Storage
-public import Tagged
-import Vector
+#if Algorithms
+    public import Array
+    public import Bit_Vector
+    public import Buffer
+    public import Buffer_Linear
+    public import Buffer_Linear_Primitive
+    public import Collection
+    public import Hash_Indexed_Primitive
+    public import Hash_Table_Primitive
+    public import Memory
+    public import Memory_Allocator
+    internal import Memory_Allocator_Protocol
+    public import Ownership_Shared_Primitive
+    internal import Set
+    public import Set_Ordered
+    public import Set_Ordered_Primitive
+    public import Stack
+    public import Storage
+    public import Tagged
+    import Vector
 
-extension Graph.Sequential.Reverse {
+    extension Graph.Sequential.Reverse {
 
-    @inlinable
-    public func reachable(
-        to target: Graph.Node<Tag>
-    ) -> __SetOrdered<Hash.Indexed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Graph.Node<Tag>>>.Linear>> {
-        let count = graph.count
-        var result = __SetOrdered<Hash.Indexed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Graph.Node<Tag>>>.Linear>>()
+        @inlinable
+        public func reachable(
+            to target: Graph.Node<Tag>
+        ) -> __SetOrdered<Hash.Indexed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Graph.Node<Tag>>>.Linear>> {
+            let count = graph.count
+            var result = __SetOrdered<Hash.Indexed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Graph.Node<Tag>>>.Linear>>()
 
-        guard count > .zero else { return result }
+            guard count > .zero else { return result }
 
-        guard target < count else { return result }
+            guard target < count else { return result }
 
-        let reversedGraph = self.reversed()
+            let reversedGraph = self.reversed()
 
-        let visited = Bit.Vector(capacity: count.retag(Bit.self))
-        var stack = Stack<Graph.Node<Tag>>()
+            let visited = Bit.Vector(capacity: count.retag(Bit.self))
+            var stack = Stack<Graph.Node<Tag>>()
 
-        stack.push(target)
+            stack.push(target)
 
-        while let node = stack.pop() {
-            let idx = node.retag(Bit.self)
-            guard !visited[idx] else { continue }
-            visited[idx] = true
-            result.insert(node)
+            while let node = stack.pop() {
+                let idx = node.retag(Bit.self)
+                guard !visited[idx] else { continue }
+                visited[idx] = true
+                result.insert(node)
 
-            let payload = reversedGraph.storage[node]
-            for adjacent in payload.adjacent {
-                let adjIdx = adjacent.retag(Bit.self)
-                if !visited[adjIdx] {
-                    stack.push(adjacent)
+                let payload = reversedGraph.storage[node]
+                for adjacent in payload.adjacent {
+                    let adjIdx = adjacent.retag(Bit.self)
+                    if !visited[adjIdx] {
+                        stack.push(adjacent)
+                    }
                 }
             }
-        }
 
-        return result
+            return result
+        }
     }
-}
+#endif

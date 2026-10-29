@@ -1,113 +1,115 @@
-internal import Array
-public import Array_Primitive
-import Bit_Vector
-internal import Buffer
-import Buffer_Linear
-internal import Buffer_Linear_Bounded_Primitive
-public import Buffer_Linear_Primitive
-internal import Buffer_Ring_Primitive
-import Collection
-internal import Memory
-internal import Memory_Allocator
-internal import Memory_Allocator_Pool
-internal import Memory_Allocator_Protocol
-internal import Memory_Pool
-internal import Ownership_Shared_Primitive
-import Stack
-internal import Storage
-internal import Store
-public import Tagged
-import Vector
+#if Algorithms
+    internal import Array
+    public import Array_Primitive
+    import Bit_Vector
+    internal import Buffer
+    import Buffer_Linear
+    internal import Buffer_Linear_Bounded_Primitive
+    public import Buffer_Linear_Primitive
+    internal import Buffer_Ring_Primitive
+    import Collection
+    internal import Memory
+    internal import Memory_Allocator
+    internal import Memory_Allocator_Pool
+    internal import Memory_Allocator_Protocol
+    internal import Memory_Pool
+    internal import Ownership_Shared_Primitive
+    import Stack
+    internal import Storage
+    internal import Store
+    public import Tagged
+    import Vector
 
-extension Graph.Traversal {
+    extension Graph.Traversal {
 
-    @frozen
-    public struct Topological<
-        Tag: ~Copyable & ~Escapable,
-        Payload,
-        Adjacent: Swift::Sequence<Graph.Node<Tag>>
-    >: Swift::Sequence {
+        @frozen
+        public struct Topological<
+            Tag: ~Copyable & ~Escapable,
+            Payload,
+            Adjacent: Swift::Sequence<Graph.Node<Tag>>
+        >: Swift::Sequence {
 
-        public typealias Element = (node: Graph.Node<Tag>, payload: Payload)
+            public typealias Element = (node: Graph.Node<Tag>, payload: Payload)
 
-        @usableFromInline
-        let elements: [(node: Graph.Node<Tag>, payload: Payload)]?
+            @usableFromInline
+            let elements: [(node: Graph.Node<Tag>, payload: Payload)]?
 
-        @usableFromInline
-        init(
-            storage: Tagged<Tag, Array<Payload>.Shared>,
-            roots: some Swift::Sequence<Graph.Node<Tag>>,
-            extract: Graph.Adjacency.Extract<Payload, Tag, Adjacent>
-        ) {
-            self.elements = Self.computeOrder(storage: storage, roots: roots, extract: extract)
-        }
+            @usableFromInline
+            init(
+                storage: Tagged<Tag, Array<Payload>.Shared>,
+                roots: some Swift::Sequence<Graph.Node<Tag>>,
+                extract: Graph.Adjacency.Extract<Payload, Tag, Adjacent>
+            ) {
+                self.elements = Self.computeOrder(storage: storage, roots: roots, extract: extract)
+            }
 
-        @usableFromInline
-        static func computeOrder(
-            storage: Tagged<Tag, Array<Payload>.Shared>,
-            roots: some Swift::Sequence<Graph.Node<Tag>>,
-            extract: Graph.Adjacency.Extract<Payload, Tag, Adjacent>
-        ) -> [Element]? {
-            let count = storage.count
-            guard count > .zero else { return [] }
+            @usableFromInline
+            static func computeOrder(
+                storage: Tagged<Tag, Array<Payload>.Shared>,
+                roots: some Swift::Sequence<Graph.Node<Tag>>,
+                extract: Graph.Adjacency.Extract<Payload, Tag, Adjacent>
+            ) -> [Element]? {
+                let count = storage.count
+                guard count > .zero else { return [] }
 
-            let visited = Bit.Vector(capacity: count.retag(Bit.self))
-            let visiting = Bit.Vector(capacity: count.retag(Bit.self))
-            var result: [Element] = []
-            result.reserveCapacity(count)
+                let visited = Bit.Vector(capacity: count.retag(Bit.self))
+                let visiting = Bit.Vector(capacity: count.retag(Bit.self))
+                var result: [Element] = []
+                result.reserveCapacity(count)
 
-            var stack = Stack<(node: Graph.Node<Tag>, entering: Bool)>()
+                var stack = Stack<(node: Graph.Node<Tag>, entering: Bool)>()
 
-            for root in roots {
-                let rootIdx = root.retag(Bit.self)
-                if visited[rootIdx] { continue }
+                for root in roots {
+                    let rootIdx = root.retag(Bit.self)
+                    if visited[rootIdx] { continue }
 
-                stack.push((root, true))
+                    stack.push((root, true))
 
-                while let (node, entering) = stack.pop() {
-                    let nodeIdx = node.retag(Bit.self)
+                    while let (node, entering) = stack.pop() {
+                        let nodeIdx = node.retag(Bit.self)
 
-                    if entering {
+                        if entering {
 
-                        if visited[nodeIdx] { continue }
-                        if visiting[nodeIdx] {
-
-                            return nil
-                        }
-
-                        visiting[nodeIdx] = true
-
-                        stack.push((node, false))
-
-                        let payload = storage[node]
-                        for adjacent in extract.adjacent(payload) {
-                            let adjIdx = adjacent.retag(Bit.self)
-                            if !visited[adjIdx] && !visiting[adjIdx] {
-                                stack.push((adjacent, true))
-                            } else if visiting[adjIdx] {
+                            if visited[nodeIdx] { continue }
+                            if visiting[nodeIdx] {
 
                                 return nil
                             }
-                        }
-                    } else {
 
-                        visiting[nodeIdx] = false
-                        visited[nodeIdx] = true
-                        result.append((node, storage[node]))
+                            visiting[nodeIdx] = true
+
+                            stack.push((node, false))
+
+                            let payload = storage[node]
+                            for adjacent in extract.adjacent(payload) {
+                                let adjIdx = adjacent.retag(Bit.self)
+                                if !visited[adjIdx] && !visiting[adjIdx] {
+                                    stack.push((adjacent, true))
+                                } else if visiting[adjIdx] {
+
+                                    return nil
+                                }
+                            }
+                        } else {
+
+                            visiting[nodeIdx] = false
+                            visited[nodeIdx] = true
+                            result.append((node, storage[node]))
+                        }
                     }
                 }
+
+                result.reverse()
+                return result
             }
 
-            result.reverse()
-            return result
-        }
+            @inlinable
+            public var hasCycles: Bool { elements == nil }
 
-        @inlinable
-        public var hasCycles: Bool { elements == nil }
-
-        @inlinable
-        public func makeIterator() -> IndexingIterator<[Element]> {
-            (elements ?? []).makeIterator()
+            @inlinable
+            public func makeIterator() -> IndexingIterator<[Element]> {
+                (elements ?? []).makeIterator()
+            }
         }
     }
-}
+#endif

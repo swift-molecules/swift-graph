@@ -1,16 +1,18 @@
-internal import Array
-internal import Vector
+#if Algorithms
+    internal import Array
+    internal import Vector
 
-extension Graph.Sequential.Transform {
+    extension Graph.Sequential.Transform {
 
-    @inlinable
-    public func payloads<NewPayload>(
-        _ transform: (Payload) -> NewPayload
-    ) -> Graph.Sequential<Tag, NewPayload> {
-        var builder = Graph.Sequential<Tag, NewPayload>.Builder(capacity: graph.count)
-        for node in graph.nodes {
-            _ = builder.allocate(transform(graph[node]))
+        @inlinable
+        public func payloads<NewPayload>(
+            _ transform: (Payload) -> NewPayload
+        ) -> Graph.Sequential<Tag, NewPayload> {
+            var builder = Graph.Sequential<Tag, NewPayload>.Builder(capacity: graph.count)
+            for node in graph.nodes {
+                _ = builder.allocate(transform(graph[node]))
+            }
+            return builder.build()
         }
-        return builder.build()
     }
-}
+#endif

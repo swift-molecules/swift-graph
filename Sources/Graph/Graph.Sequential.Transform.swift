@@ -1,17 +1,19 @@
-internal import Array
-extension Graph.Sequential {
+#if Algorithms
+    internal import Array
+    extension Graph.Sequential {
 
-    @inlinable
-    public var transform: Transform { Transform(graph: self) }
+        @inlinable
+        public var transform: Transform { Transform(graph: self) }
 
-    @frozen
-    public struct Transform {
+        @frozen
+        public struct Transform {
 
-        public let graph: Graph.Sequential<Tag, Payload>
+            public let graph: Graph.Sequential<Tag, Payload>
 
-        @usableFromInline
-        init(graph: Graph.Sequential<Tag, Payload>) {
-            self.graph = graph
+            @usableFromInline
+            init(graph: Graph.Sequential<Tag, Payload>) {
+                self.graph = graph
+            }
         }
     }
-}
+#endif

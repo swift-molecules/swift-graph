@@ -1,19 +1,21 @@
-internal import Array
-extension Graph.Sequential {
+#if Algorithms
+    internal import Array
+    extension Graph.Sequential {
 
-    @inlinable
-    public var traverse: Traverse { Traverse(graph: self) }
+        @inlinable
+        public var traverse: Traverse { Traverse(graph: self) }
 
-    @frozen
-    public struct Traverse {
+        @frozen
+        public struct Traverse {
 
-        public let graph: Graph.Sequential<Tag, Payload>
+            public let graph: Graph.Sequential<Tag, Payload>
 
-        @usableFromInline
-        init(graph: Graph.Sequential<Tag, Payload>) {
-            self.graph = graph
+            @usableFromInline
+            init(graph: Graph.Sequential<Tag, Payload>) {
+                self.graph = graph
+            }
         }
     }
-}
 
-extension Graph.Sequential.Traverse: Sendable where Payload: Sendable {}
+    extension Graph.Sequential.Traverse: Sendable where Payload: Sendable {}
+#endif

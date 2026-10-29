@@ -1,5 +1,7 @@
-internal import Array
-extension Graph.Traversal {
+#if Algorithms
+    internal import Array
+    extension Graph.Traversal {
 
-    public enum First {}
-}
+        public enum First {}
+    }
+#endif

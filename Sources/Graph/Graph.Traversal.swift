@@ -1,5 +1,7 @@
-internal import Array
-extension Graph {
+#if Algorithms
+    internal import Array
+    extension Graph {
 
-    public enum Traversal {}
-}
+        public enum Traversal {}
+    }
+#endif

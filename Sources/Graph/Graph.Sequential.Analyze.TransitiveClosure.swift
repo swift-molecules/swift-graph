@@ -1,70 +1,72 @@
-public import Array
-public import Bit_Vector
-public import Buffer
-public import Buffer_Linear
-public import Buffer_Linear_Bounded_Primitive
-public import Buffer_Linear_Primitive
-public import Collection
-public import Fixed
-public import Memory
-public import Memory_Allocator
-internal import Memory_Allocator_Protocol
-public import Ownership_Shared_Primitive
-public import Stack
-public import Storage
-public import Tagged
-internal import Vector
+#if Algorithms
+    public import Array
+    public import Bit_Vector
+    public import Buffer
+    public import Buffer_Linear
+    public import Buffer_Linear_Bounded_Primitive
+    public import Buffer_Linear_Primitive
+    public import Collection
+    public import Fixed
+    public import Memory
+    public import Memory_Allocator
+    internal import Memory_Allocator_Protocol
+    public import Ownership_Shared_Primitive
+    public import Stack
+    public import Storage
+    public import Tagged
+    internal import Vector
 
-extension Graph.Sequential.Analyze {
+    extension Graph.Sequential.Analyze {
 
-    @inlinable
-    public func transitiveClosure() -> Graph.Sequential<Tag, Graph.Adjacency.List<Tag>> {
-        let count = graph.count
-        guard count > .zero else {
-            let builder = Graph.Sequential<Tag, Graph.Adjacency.List<Tag>>.Builder()
-            return builder.build()
-        }
-
-        var closureAdjacent = __Fixed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<[Graph.Node<Tag>]>>.Linear.Bounded>(
-            repeating: [],
-            count: count.retag([Graph.Node<Tag>].self)
-        )
-
-        for source in graph.nodes {
-            let visited = Bit.Vector(capacity: count.retag(Bit.self))
-            var stack = Stack<Graph.Node<Tag>>()
-
-            let sourcePayload = graph.storage[source]
-            for adjacent in extract.adjacent(sourcePayload) {
-                stack.push(adjacent)
+        @inlinable
+        public func transitiveClosure() -> Graph.Sequential<Tag, Graph.Adjacency.List<Tag>> {
+            let count = graph.count
+            guard count > .zero else {
+                let builder = Graph.Sequential<Tag, Graph.Adjacency.List<Tag>>.Builder()
+                return builder.build()
             }
 
-            while let node = stack.pop() {
-                let idx = node.retag(Bit.self)
-                guard !visited[idx] else { continue }
-                visited[idx] = true
+            var closureAdjacent = __Fixed<Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<[Graph.Node<Tag>]>>.Linear.Bounded>(
+                repeating: [],
+                count: count.retag([Graph.Node<Tag>].self)
+            )
 
-                closureAdjacent[source.retag([Graph.Node<Tag>].self)].append(node)
+            for source in graph.nodes {
+                let visited = Bit.Vector(capacity: count.retag(Bit.self))
+                var stack = Stack<Graph.Node<Tag>>()
 
-                let payload = graph.storage[node]
-                for adjacent in extract.adjacent(payload) {
-                    let adjIdx = adjacent.retag(Bit.self)
-                    if !visited[adjIdx] {
-                        stack.push(adjacent)
+                let sourcePayload = graph.storage[source]
+                for adjacent in extract.adjacent(sourcePayload) {
+                    stack.push(adjacent)
+                }
+
+                while let node = stack.pop() {
+                    let idx = node.retag(Bit.self)
+                    guard !visited[idx] else { continue }
+                    visited[idx] = true
+
+                    closureAdjacent[source.retag([Graph.Node<Tag>].self)].append(node)
+
+                    let payload = graph.storage[node]
+                    for adjacent in extract.adjacent(payload) {
+                        let adjIdx = adjacent.retag(Bit.self)
+                        if !visited[adjIdx] {
+                            stack.push(adjacent)
+                        }
                     }
                 }
             }
-        }
 
-        var builder = Graph.Sequential<Tag, Graph.Adjacency.List<Tag>>.Builder(capacity: count)
-        for source in graph.nodes {
-            _ = builder.allocate(
-                Graph.Adjacency.List(
-                    adjacent: closureAdjacent[source.retag([Graph.Node<Tag>].self)]
+            var builder = Graph.Sequential<Tag, Graph.Adjacency.List<Tag>>.Builder(capacity: count)
+            for source in graph.nodes {
+                _ = builder.allocate(
+                    Graph.Adjacency.List(
+                        adjacent: closureAdjacent[source.retag([Graph.Node<Tag>].self)]
+                    )
                 )
-            )
-        }
+            }
 
-        return builder.build()
+            return builder.build()
+        }
     }
-}
+#endif
