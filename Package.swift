@@ -25,9 +25,7 @@ let package = Package(
             targets: ["Graph Apple Foundation Integration"]
         ),
     ],
-    traits: [
-        .trait(name: "Algorithms", description: "Analysis, path, traversal, reversal and transform algorithms over sequential graphs"),
-    ],
+    traits: [.trait(name: "Algorithms", description: "Analysis, path, traversal, reversal and transform algorithms over sequential graphs")],
     dependencies: [
         .package(url: "https://github.com/swift-atoms/swift-cardinal.git", branch: "main"),
         .package(url: "https://github.com/swift-atoms/swift-ordinal.git", branch: "main"),
