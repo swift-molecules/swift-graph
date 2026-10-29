@@ -27,7 +27,6 @@ let package = Package(
     ],
     traits: [
         .trait(name: "Algorithms", description: "Analysis, path, traversal, reversal and transform algorithms over sequential graphs"),
-        .default(enabledTraits: []),
     ],
     dependencies: [
         .package(url: "https://github.com/swift-atoms/swift-cardinal.git", branch: "main"),
